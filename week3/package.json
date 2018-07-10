@@ -1,0 +1,14 @@
+{
+  "name": "example_server",
+  "version": "1.0.0",
+  "description": "week3",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Harley Jarrett",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
