@@ -2,8 +2,8 @@
 ### Node application that prints the hello world message
 
 ## How to Run
-	After cloning run ``` npm install ```
-    Then run: ``` node index.js ```
+	After cloning run: npm install
+    Then run: node index.js
 
 ## Course Content
 
