@@ -8,3 +8,10 @@
 ## Course Content
 •	Week 1 - Hello World and string manipulation
 •	Week 2 - Git repo
+
+|  Week          |Content                        |
+|----------------|-------------------------------|
+|Week 1          |Hello world & string manip     |
+|Week 2          |Git repo & merging             |
+|Week 3          |Express & jQuery               |
+|Week 4          |                               |
