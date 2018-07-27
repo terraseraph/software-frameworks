@@ -1,4 +1,7 @@
-# MyApp
+# Week 5
+
+#Run with c9
+`ng serve --host $IP --port $PORT --public-host $C9_HOSTNAME`
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
 
