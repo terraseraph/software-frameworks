@@ -7,15 +7,19 @@ import {Router} from '@angular/router';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  name      : string;
-  age       : string;
-  dob       : string;
-  id        : string;
-  username  : string;
+  public name      : string;
+  public age       : string;
+  public dob       : string;
+  public id        : string;
+  public username  : string;
+  
   constructor(private router:Router) { }
 
   ngOnInit() {
-    var data = localStorage.getItem('session')
+    var data : any = localStorage.getItem('session')
+    if (data == ''){
+      return
+    }
     data = JSON.parse(data)
     this.name = data.name;
     this.username = data.username;
