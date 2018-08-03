@@ -8,6 +8,9 @@ Then run: `node index.js`
 ## Run angular in cloud9
 `ng serve --host $IP --port $PORT --public-host $C9_HOSTNAME`
 
+## Update node version for angular
+`nvm install lts/* --reinstall-packages-from=node`
+
 ## Course Content
 
 |  Week          |Content                        |
