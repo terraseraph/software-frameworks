@@ -23,6 +23,10 @@ Then run: `node index.js`
 ### Mongo run
 `./mongod`
 
+Also start the node server for the rest api, located in assignment1/mongo-server
+
+`npm start` <-this runs from package.json as a script to run nodemon
+
 ### Mongo unsafe shutdown
 Delete ./data/mongod.lock
 
