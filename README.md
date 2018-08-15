@@ -13,8 +13,11 @@ Then run: `node index.js`
 
 ## MongoDB
 `sudo apt-get install -y mongodb-org`
+
 `cd ~/workspace && mkdir data`
+
 `echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"' > mongod`
+
 `chmod a+x mongod`
 
 ### Mongo run
