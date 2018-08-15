@@ -7,11 +7,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  public name      : string;
-  public age       : string;
-  public dob       : string;
-  public id        : string;
-  public username  : string;
+  name      : string;
+  age       : string;
+  dob       : string;
+  id        : string;
+  username  : string;
   
   constructor(private router:Router) { }
 

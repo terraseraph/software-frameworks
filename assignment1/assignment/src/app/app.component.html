@@ -1,0 +1,22 @@
+<div id='container'>
+    <div class="navbar  navbar-inverse">
+        <div class="navbar-inner">
+          <div class="pull-right">
+            <a href="#" class="brand">Chat Room</a>
+          </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-md-2">
+                <app-menu></app-menu>
+    		</div>
+    		<div class="col-md-8">
+                <router-outlet></router-outlet>
+    		</div>
+    		<div class="col-md-2">
+    		    <app-rooms-list></app-rooms-list>
+    		</div>
+    	</div>
+    </div>
+</div>

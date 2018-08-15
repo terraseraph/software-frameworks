@@ -1,0 +1,42 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron card card-block">
+				<h2>
+					Login
+				</h2>
+                                <div class="container-fluid">
+                                	<div class="row">
+                                		<div class="col-md-12">
+                                			<form role="form" (submit)='loginUser($event)'>
+                                				<div class="form-group">
+                                					 
+                                					<label for="username">
+                                						Username:   
+                                					</label>
+                                					<input id='username' [(ngModel)]='username' name="username" type="text">
+                                				</div>
+                                				<div class="form-group">
+                                					<label for="password">
+                                						Password:   
+                                					</label>
+                                					<input id='password' [(ngModel)]='password' type="password" name='password'>
+                                				</div>				
+                                				<button type="submit" class="btn btn-primary">
+                                					Submit
+                                				</button>
+                                			</form>
+                                		</div>
+                                	</div>
+                                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+

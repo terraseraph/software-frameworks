@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
+var Schema = mongoose.Schema;
 
-
-var Schema = mongoose.Schema({
+var ChatRoom = new Schema({
   createdAt:{
     type: Date,
     default: Date.now
   },
-  fullName: String,
-  todoText: String
+  room_name: String,
+  room_admin: String
 });
 
 
-export default mongoose.model('chat', Schema);
+export default mongoose.model('chat', ChatRoom);

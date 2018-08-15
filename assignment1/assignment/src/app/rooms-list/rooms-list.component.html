@@ -1,0 +1,6 @@
+<h3>Rooms</h3>
+<button type="button" class="btn btn-block btn-info" *ngFor='let x of rooms_list' (click)="chat_btn(x._id, x.room_name)">
+	{{x.room_name}}
+</button>
+
+<!--[routerLink]="['/chat-room']-->
