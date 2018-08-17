@@ -12,6 +12,7 @@ export class MongoService {
   
   public user_id:any
   public user_name:any
+  public user_role:any
   public user_list:any
   public groups_list:any
   public channels_list:any
@@ -147,6 +148,12 @@ export class MongoService {
   private handleError(error: any): Promise<any> {
     console.error('ERROR', error);
     return Promise.reject(error.message || error);
+  }
+  
+  public reset_login(){
+    this.user_id = null
+    this.user_name = null
+    this.user_role = null
   }
 
 }

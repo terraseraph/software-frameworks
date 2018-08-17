@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RouterModule, Routes, Router} from '@angular/router';
+import {MongoService} from "../mongo.service";
 
 @Component({
   selector: 'app-menu',
@@ -8,13 +9,14 @@ import {RouterModule, Routes, Router} from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private mongo:MongoService) { }
 
   ngOnInit() {
   }
   
   logout(){
     localStorage.setItem('loggedIn', "false")
+    this.mongo.reset_login()
     this.router.navigateByUrl(`/login`)
   }
 

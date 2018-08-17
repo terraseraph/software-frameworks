@@ -11,6 +11,9 @@ import {AuthguardService} from "../authguard.service";
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
+  
+  auth_role:any
+  
   users:any
   new_username:any
   new_password:any
@@ -46,6 +49,8 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.authguard.canActivate()
+    this.auth_role = this.authguard.check_role(this.mongo.user_role)
+    console.log(this.auth_role)
     this.get_users()
     this.get_groups()
     this.get_channels()

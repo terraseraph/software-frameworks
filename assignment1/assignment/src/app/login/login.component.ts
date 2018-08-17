@@ -50,10 +50,12 @@ export class LoginComponent implements OnInit {
     if(dat.PasswordMatch){
       localStorage.setItem("username", this.username)
       localStorage.setItem('loggedIn', "true")
+      localStorage.setItem('role', dat.user.role)
       this.router.navigateByUrl('/main')
       localStorage.setItem("session", JSON.stringify(data))
       this.mongo.user_id = dat.user._id
       this.mongo.user_name = dat.user.username
+      this.mongo.user_role = dat.user.role
       console.log("Logged in as ", dat.user.username)
     }
   }

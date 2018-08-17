@@ -1,3 +1,5 @@
+
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-4">
@@ -17,16 +19,16 @@
                 <td class="" ng-bind="usr.username">{{usr.username}}</td>
                 <td class="" ng-bind="usr.role">{{usr.role}}</td>
                 <td class="" ng-bind="usr.role">
-                  <button class='btn' (click)="update_user(usr._id, usr.username, usr.password, usr.role)">update</button>
-                  <button class='btn btn-danger' (click)="remove_user(usr._id)">remove</button>
+                  <button *ngIf="auth_role.edit_users" class='btn' (click)="update_user(usr._id, usr.username, usr.password, usr.role)">update</button>
+                  <button *ngIf="auth_role.edit_users" class='btn btn-danger' (click)="remove_user(usr._id)">remove</button>
                 </td>
               </tr>
             </tbody>
         </table>		    
 
-          
+      <div *ngIf="auth_role.edit_users">
           <h3>New user</h3>
-    		<form role="form" (submit)='new_user($event)'>
+    		<form role="form" (submit)='new_user($event)' >
     			<div class="form-group">
     				 
     				<label for="username">
@@ -44,14 +46,23 @@
     				<label for="role">
     					Role:   
     				</label>
-    				<input id='role' [(ngModel)]='new_role' type="text" name='new_role'>
+    			<div class="form-group">
+              <label for="new_role">Select list:</label>
+              <select class="form-control" id="new_role" [(ngModel)]='new_role' name='new_role'>
+                <option>user</option>
+                <option *ngIf="auth_role.edit_user_group_admin">group_admin</option>
+                <option *ngIf="auth_role.edit_user_super_admin">super_admin</option>
+              </select>
+            </div>
+    				<!--<input id='role' [(ngModel)]='new_role' type="text" name='new_role'>-->
     			</div>	    			
     			<button type="submit" class="btn btn-primary">
     				Submit
     			</button>
     		</form>          
-          
-          
+      </div>
+      
+      <div *ngIf="auth_role.edit_users">
           <h3>update user</h3>
     		<form role="form" (submit)='confirm_update($event)'>
     			<div class="form-group">
@@ -71,13 +82,23 @@
     				<label for="update_role">
     					Role:   
     				</label>
-    				<input id='update_role' [(ngModel)]='update_role' type="text" name='update_role'>
+    				
+    				<div class="form-group">
+              <label for="update_role">Select list:</label>
+              <select class="form-control" id="update_role" [(ngModel)]='update_role' name='update_role'>
+                <option>user</option>
+                <option *ngIf="auth_role.edit_user_group_admin">group_admin</option>
+                <option *ngIf="auth_role.edit_user_super_admin">super_admin</option>
+              </select>
+            </div>
+            
+    				<!--<input id='update_role' [(ngModel)]='update_role' type="text" name='update_role'>-->
     			</div>	    			
     			<button type="submit" class="btn btn-primary">
     				Submit
     			</button>
     		</form>
-          
+      </div>
           <!---->
 		</div>
 		<div class="col-md-4">
@@ -94,13 +115,14 @@
           <tr *ngFor='let group of settings_group_list'>
             <td class="" ng-bind="group.group_name">{{group.group_name}}</td>
             <td class="" ng-bind="group.group_admins">{{group.group_admins}}
-              <button class='btn' (click)="update_group(group._id, group.group_name, group.group_admins, group.group_users)">update</button>
-              <button class='btn btn-danger' (click)="remove_group(group._id)">remove</button>
+              <button *ngIf="auth_role.edit_groups" class='btn' (click)="update_group(group._id, group.group_name, group.group_admins, group.group_users)">update</button>
+              <button *ngIf="auth_role.edit_groups" class='btn btn-danger' (click)="remove_group(group._id)">remove</button>
             </td>
           </tr>
         </tbody>
     </table>		    
-    
+  
+  <div *ngIf="auth_role.edit_groups">
     <h3>New Group</h3>
 		<form role="form" (submit)='new_group($event)'>
 			<div class="form-group">
@@ -114,10 +136,11 @@
 				Submit
 			</button>
 		</form>   
-		
-		
+	</div>	
+	
+	<div *ngIf="auth_role.edit_groups">
     <h3>Edit Group</h3>
-  		<form role="form" (submit)='confirm_update_group($event)'>
+  		<form role="form" (submit)='confirm_update_group($event)' >
   			<div class="form-group">
   				 
   				<label for="update_group_name">
@@ -141,7 +164,7 @@
   				Submit
   			</button>
   		</form>
-
+  </div>	
 		    
 		    
 		    <!---->
@@ -159,14 +182,14 @@
           <tr *ngFor='let channel of settings_channels_list'>
             <td class="" ng-bind="channel.channel_name">{{channel.channel_name}}</td>
             <td class="" ng-bind="channel.channel_group">{{channel.group_id}}
-              <button class='btn' (click)="update_channel(channel._id, channel.channel_name, channel.group_id, channel.channel_users)">update</button>
-              <button class='btn btn-danger' (click)="remove_channel(channel._id)">remove</button>
+              <button *ngIf="auth_role.edit_channels" class='btn' (click)="update_channel(channel._id, channel.channel_name, channel.group_id, channel.channel_users)">update</button>
+              <button *ngIf="auth_role.edit_channels" class='btn btn-danger' (click)="remove_channel(channel._id)">remove</button>
             </td>
           </tr>
         </tbody>
     </table>	
     
-    
+    <div *ngIf="auth_role.edit_channels">
       <h3>New Channel</h3>
     		<form role="form" (submit)='new_channel($event)'>
     			<div class="form-group">
@@ -192,9 +215,11 @@
     				Submit
     			</button>
     		</form>
-    		
+    	</div>
+    	
+    	<div *ngIf="auth_role.edit_channels">
         <h3>Update channel</h3>
-    		<form role="form" (submit)='confirm_update_channel($event)'>
+    		<form role="form" (submit)='confirm_update_channel($event)' >
     			<div class="form-group">
     				 
     				<label for="update_channel_name">
@@ -218,7 +243,7 @@
     				Submit
     			</button>
     		</form>
-    		
+    	</div>	
 
 		    
 		    
@@ -226,3 +251,13 @@
 		</div>
 	</div>
 </div>
+
+
+
+
+
+<!--<div *ngIf="auth_role.edit_users;else other_content">-->
+<!--    Can edit users-->
+<!--</div>-->
+
+<!--<ng-template #other_content>Cannot edit users</ng-template>-->
