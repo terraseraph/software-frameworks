@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {CanActivate, RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms'
 import { HttpModule } from '@angular/http';
 
@@ -10,6 +10,8 @@ import { MainComponent } from './main/main.component';
 import { MenuComponent } from './menu/menu.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { ChatRoomComponent } from './chat-room/chat-room.component';
+import { SettingsComponent } from './settings/settings.component';
+// import { AuthguardService } from  './authguard.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { ChatRoomComponent } from './chat-room/chat-room.component';
     MainComponent,
     MenuComponent,
     RoomsListComponent,
-    ChatRoomComponent
+    ChatRoomComponent,
+    SettingsComponent,
+    // AuthguardService
   ],
   imports: [
         RouterModule.forRoot([
@@ -26,6 +30,7 @@ import { ChatRoomComponent } from './chat-room/chat-room.component';
       {"path":"main", "component":MainComponent},
       {"path":"menu", "component":MenuComponent},
       {"path":"rooms", "component":RoomsListComponent},
+      {"path":"settings", "component":SettingsComponent},
       {"path":"chat-room/:id/:name", "component":ChatRoomComponent}
     ]),
     BrowserModule,

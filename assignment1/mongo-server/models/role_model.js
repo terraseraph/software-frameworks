@@ -7,8 +7,9 @@ var ChatRoom = new Schema({
     default: Date.now
   },
   room_name: String,
-  room_admin: String
+  group_admins: Array,
+  group_users: Array
 });
 
 
-export default mongoose.model('chat', ChatRoom);
+export default mongoose.model('groups', ChatRoom);
