@@ -22,23 +22,39 @@ export class LoginComponent implements OnInit {
   loginUser(event){
     event.preventDefault();
     console.log(this.username, this.password)
-    if(this.mongo.user_login({username: this.username, password : this.password})){
-      console.log('MONGO LOGIN WORKS')
-    }
-    if(this.username == 'admin' && this.password =='123'){
-      this.router.navigateByUrl('/main')
-      var data = {
-        id        : '1',
-        username  : this.username,
-        name      : "admin guy",
-        age       : "90",
-        dob       : "20/1/1928"
-      }
-      localStorage.setItem("session", JSON.stringify(data))
+    // if(this.mongo.user_login({username: this.username, password : this.password})){
+    //   console.log('MONGO LOGIN WORKS')
+    // }
+    this.mongo.user_login({username: this.username, password : this.password})
+        .subscribe((data => this.login_success(data)))
+    // if(this.username == 'admin' && this.password =='123'){
+    //   this.router.navigateByUrl('/main')
+    //   var data = {
+    //     id        : '1',
+    //     username  : this.username,
+    //     name      : "admin guy",
+    //     age       : "90",
+    //     dob       : "20/1/1928"
+    //   }
+    //   localStorage.setItem("session", JSON.stringify(data))
+    //   localStorage.setItem("username", this.username)
+    // }
+    // else{
+    //   console.log('Login fail')
+    // }
+  }
+  
+  login_success(data){
+    var dat = JSON.parse(data._body)
+    console.log(dat)
+    if(dat.PasswordMatch){
       localStorage.setItem("username", this.username)
-    }
-    else{
-      console.log('Login fail')
+      localStorage.setItem('loggedIn', "true")
+      this.router.navigateByUrl('/main')
+      localStorage.setItem("session", JSON.stringify(data))
+      this.mongo.user_id = dat.user._id
+      this.mongo.user_name = dat.user.username
+      console.log("Logged in as ", dat.user.username)
     }
   }
 

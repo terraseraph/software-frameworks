@@ -1,10 +1,11 @@
-      <h3>Room id: {{room_id}}</h3>
-      <h3>Name: {{room_name}}</h3>
+      <h3>Room id: {{channel_id}}</h3>
+      <h3>Name: {{channel_name}}</h3>
       <div class="row">
         <div class="col-md-2">
-          <ul class="nav nav-list well">
-            <li class="nav-header">Local Users</li>
-            <li ng-repeat="user in roster" ng-bind="user">
+          <ul class="well">
+            <h5>Users</h5>
+            <li *ngFor="let user of channel_users" ng-bind="user">
+              {{user}}
             </li>
           </ul>
         </div>
@@ -17,7 +18,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor='let msg of room_messages'>
+              <tr *ngFor='let msg of channel_messages'>
                 <td class="" ng-bind="msg.username">{{msg.username}}</td>
                 <td class="" ng-bind="msg.message">{{msg.message}}</td>
               </tr>

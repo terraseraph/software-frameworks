@@ -1,6 +1,13 @@
-<h3>Rooms</h3>
-<button type="button" class="btn btn-block btn-info" *ngFor='let x of rooms_list' (click)="chat_btn(x._id, x.room_name)">
-	{{x.room_name}}
-</button>
+<h3>Groups</h3>
+<div class='card' *ngFor="let group of combined_list">
+	<h5 class="card-header">
+		{{group.name}}
+	</h5>
+	<div class="card-body">
+        <button class='btn btn-block btn-info' *ngFor="let channel of group.channels" (click)="chat_btn(channel.id, channel.name, channel.users)">{{ channel.name }} : {{ channel.id }}</button>
+	</div>
+</div>  
+
+
 
 <!--[routerLink]="['/chat-room']-->

@@ -55,26 +55,42 @@ exports.getUser = function(req,res){
 
 
 exports.deleteUser = function(req,res){
-  user_model.findByIdAndRemove(req.params.id, (err,user) => {
+  user_model.findByIdAndRemove(req.body.id, (err,user) => {
     if(err){
     return res.json({'success':false,'message':'Some Error'});
     }
-return res.json({'success':true,'message':user.username+' deleted successfully'});
+return res.json({'success':true,'message':user});
   })
 }
 
 exports.loginUser = function(req, res){
-   user_model.findOne({ username: req.body.username }, function(err, user) {
-        if (err) throw err;
-
-        // test a matching password
-        user.comparePassword(req.body.password, function(err, isMatch) {
-            if(err){
-                return res.json({'success':false,'message':'Some Error'});
+    console.log(req.body)
+    // needs all of this, throws a weird query error if it cant find one.......
+      user_model.findOne({ username: req.body.username }, function(err, user) {
+          if (err) {
+            return res.json({'success':false, "message": err})
+          }
+          if(user != null)
+          {
+            if(!user.username)
+            {
+                 return res.json({'success':false, "message": "No user of that name"})
             }
-            else{
-              return res.json({'success':true,'PasswordMatch': isMatch});
+            else
+            {
+              // test a matching password
+              user.comparePassword(req.body.password, function(err, isMatch) {
+                  if(err){
+                      return res.json({'success':false,'message':'Some Error'});
+                  }
+                  else{
+                    return res.json({'success':true,'PasswordMatch': isMatch, "user":user});
+                  }
+              })            
             }
-        })            
-    });
+          }
+          else{
+             return res.json({'success':false, "message": "No user of that name"})
+          }
+        });
 };

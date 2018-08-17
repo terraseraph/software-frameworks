@@ -6,7 +6,7 @@ var Message = new Schema({
     type: Date,
     default: Date.now
   },
-  room_id: { type: String, required: true},
+  channel_id: { type: String, required: true},
   message: { type: String, required: true},
   username: { type: String, required: true}
 });
