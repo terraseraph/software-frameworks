@@ -17,6 +17,8 @@ export class MongoService {
   public user_list:any
   public groups_list:any
   public channels_list:any
+  public old_channel:any
+  public channel_id:any
   
   public channel_user_list:any
   
