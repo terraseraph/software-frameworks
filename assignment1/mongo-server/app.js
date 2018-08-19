@@ -4,24 +4,67 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import SourceMapSupport from 'source-map-support';
-
-
-
-// import routes
 import mongo_routes from './routes/mongo';
+const cors = require('cors');
 
-
-// define our app using express
 const app = express();
+app.use(cors())
+const server = require('http').Server(app);
+const io = require('socket.io')(server, { origins: '*:*'});
 
 
+app.set('io', io);
 
-// allow-cors
-app.use(function(req,res,next){
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-})
+
+/////////////////////////////////////
+
+// io.sockets.on('connection', function (socket) {
+
+//     socket.on('subscribe', function(data) { socket.join(data.room); })
+
+//     socket.on('unsubscribe', function(data) { socket.leave(data.room); })
+
+// });
+
+// setInterval(function(){
+//     io.sockets.in('global').emit('roomChanged', { chicken: 'tasty' });
+// }, 1000);
+
+/////////////////////////////////////
+
+io.on('connection', function(socket){
+  console.log("Connected==============")
+  socket.on('new-message', function(msg){
+    io.emit('new-message', msg);
+    console.log("message: "+ msg)
+  });
+  
+socket.on('subscribe', function(room) {
+    console.log('joining room', room);
+    socket.join(room);
+});
+
+socket.on('unsubscribe', function(room) {
+    console.log('leaving room', room);
+    socket.leave(room);
+});
+
+socket.on('message', function(data) {
+    console.log('sending room post', data.room, data.message);
+    // socket.broadcast.to(data.room).emit('message', {
+    //     message: data.message
+    // });
+    io.sockets.in(data.room).emit('message',{message: data.message});
+    // io.to(data.room).emit(data.message);
+
+});
+  
+  
+  socket.on('update', function(msg){
+    io.emit('update', msg);
+    console.log("updates: "+ msg)
+  });
+});
 
 
 
@@ -74,7 +117,7 @@ app.use((req, res, next) => {
 });
 
 
-app.listen(8081 || 3000, process.env.IP || "0.0.0.0", function(){
+server.listen(8081 || 3000, process.env.IP || "0.0.0.0", function(){
 //   var addr = app.address();
   console.log("server listening at", process.env.IP + ":" + 8081);
 });

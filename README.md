@@ -43,3 +43,12 @@ Run `./mongod` again
 |Week 4          |Angular-labs                   |
 |Week 5          |Angular-login                  |
 |Week 6          |Angular-Chat                   |
+
+
+
+
+## Notes:
+
+- for angular to work with socket.io must add the following line to polyfills.ts:
+
+`(window as any).global = window;`

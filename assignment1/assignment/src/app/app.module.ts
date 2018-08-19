@@ -11,7 +11,7 @@ import { MenuComponent } from './menu/menu.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { ChatRoomComponent } from './chat-room/chat-room.component';
 import { SettingsComponent } from './settings/settings.component';
-// import { AuthguardService } from  './authguard.service';
+import { SocketService } from './socket.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,6 @@ import { SettingsComponent } from './settings/settings.component';
     RoomsListComponent,
     ChatRoomComponent,
     SettingsComponent,
-    // AuthguardService
   ],
   imports: [
         RouterModule.forRoot([
@@ -37,7 +36,7 @@ import { SettingsComponent } from './settings/settings.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,7 @@ import { ChatRoomComponent } from '../chat-room/chat-room.component';
 import {ActivatedRoute} from "@angular/router";
 import {MongoService} from "../mongo.service";
 import {MethodsService} from "../methods.service";
+import {SocketService} from "../socket.service";
 
 //THIS IS ACTUALLY CHANNELS AND GROUPS LISTINGS!!!!!!
 //NEEDS REFACTORING TO REFLECT
@@ -19,7 +20,7 @@ export class RoomsListComponent implements OnInit {
   combined_list:any
 
   
-  constructor(private mongo:MongoService, private router:Router, private methods:MethodsService) {
+  constructor(private socket:SocketService, private mongo:MongoService, private router:Router, private methods:MethodsService) {
   }
 
   ngOnInit() {
@@ -33,7 +34,9 @@ export class RoomsListComponent implements OnInit {
   
   //click event for room button
   chat_btn(id:any, name:any, users:any){
+    this.socket.leave_channel(this.mongo.channel_id, name)
     this.mongo.channel_user_list = users
+    this.mongo.channel_id = id
     localStorage.setItem("room_id", id)
     console.log("set id: ", id)
     this.router.navigateByUrl(`/chat-room/${id}/${name}`)
