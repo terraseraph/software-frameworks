@@ -65,11 +65,14 @@ export class RoomsListComponent implements OnInit {
       }
       for (var j = 0; j < channels.message.length; j++){
         if(groups.message[i].group_name == channels.message[j].group_id){
-          obj.channels.push({
-            id: channels.message[j]._id,
-            name: channels.message[j].channel_name,
-            users: channels.message[j].channel_users
-          })
+          var lst = channels.message[j].channel_users
+          if(lst.includes(this.mongo.user_data.username) || this.mongo.user_data.role == 'super_admin' || this.mongo.user_data.role == 'group_admin'){
+            obj.channels.push({
+              id: channels.message[j]._id,
+              name: channels.message[j].channel_name,
+              users: channels.message[j].channel_users
+            })
+          }
         }
       }
       arr.push(obj)

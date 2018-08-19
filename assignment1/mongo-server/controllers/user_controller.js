@@ -17,7 +17,12 @@ exports.addUser = function(req,res){
     var new_user = new user_model({
         username: req.body.username,
         password: req.body.password,
-        role: req.body.role
+        role: req.body.role,
+        details : {
+          fullname : "",
+          email: "",
+          dob : ""
+        }
     });
     new_user.save((err,user) => {
         if(err){

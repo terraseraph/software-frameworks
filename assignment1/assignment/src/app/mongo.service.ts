@@ -10,6 +10,7 @@ import { Observable, of } from 'rxjs';
 })
 export class MongoService {
   
+  public user_data:any
   public user_id:any
   public user_name:any
   public user_role:any

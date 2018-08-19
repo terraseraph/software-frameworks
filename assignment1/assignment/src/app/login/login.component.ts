@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
       this.mongo.user_id = dat.user._id
       this.mongo.user_name = dat.user.username
       this.mongo.user_role = dat.user.role
+      this.mongo.user_data = dat.user
       console.log("Logged in as ", dat.user.username)
     }
   }

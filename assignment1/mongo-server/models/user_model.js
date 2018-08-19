@@ -13,7 +13,8 @@ var UserSchema = new Schema({
     password: { type: String, required: true },
     email: { type: String},
     role: { type: String, required: true },
-    groups: {type: Object}
+    groups: {type: Object},
+    details: {type: Schema.Types.Mixed}
 });
 
 

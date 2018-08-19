@@ -49,7 +49,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.authguard.canActivate()
-    this.auth_role = this.authguard.check_role(this.mongo.user_role)
+    this.auth_role = this.authguard.check_role(this.mongo.user_data.role)
     console.log(this.auth_role)
     this.get_users()
     this.get_groups()
@@ -85,7 +85,7 @@ export class SettingsComponent implements OnInit {
   }
   
   confirm_update(event){
-    event.preventDefault()
+    // event.preventDefault()
     var data = {
       id : this.update_id,
       username : this.update_username,
@@ -131,8 +131,8 @@ export class SettingsComponent implements OnInit {
   }   
 
   //Some of this belongs in channel!!!
-  confirm_update_group(event){
-    event.preventDefault()
+  confirm_update_group(){
+    // event.preventDefault()
     var grp = this.update_group_admins.toString()
     var usr = this.update_group_users.toString()
     grp = grp.split(',')
@@ -185,8 +185,8 @@ export class SettingsComponent implements OnInit {
     console.log("update user", id)
   }  
   
-  confirm_update_channel(event){
-    event.preventDefault()
+  confirm_update_channel(){
+    // event.preventDefault()
     var usr = this.update_channel_users.toString()
     usr = usr.split(',')
     var usr_arr = []
@@ -234,6 +234,7 @@ export class SettingsComponent implements OnInit {
       if (!arr.includes(users[i])){
         console.log("USER NOT EXISTS")
         this.create_user(users[i], "123", "user")
+        this.mongo.user_list.push(users[i])
       }
     }
   }
@@ -272,5 +273,9 @@ export class SettingsComponent implements OnInit {
     this.mongo.user_list = dat.message;
     this.users = dat.message;
     console.log("USERS",dat.message)
+  }
+  
+  prevent_submit(event){
+    event.preventDefault()
   }
 }

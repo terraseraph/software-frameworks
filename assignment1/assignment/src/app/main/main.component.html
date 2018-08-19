@@ -1,3 +1,75 @@
-<p>
-  {{sessionData}}
-</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-4">
+            <table class="table table-striped table-bordered">
+                <tbody>
+                    <tr>
+                        <td>Username</td>
+                        <td class="" ng-bind="usr.username">{{user_data.username}}</td>
+                    </tr>
+                    <tr>
+                        <td>Role</td>
+                        <td class="">{{user_data.role}}</td>
+                    </tr>        
+                        <td>Full Name</td>
+                        <td class="">{{user_data.details.fullname}}</td>
+                    <tr>
+                        <td>DOB</td>
+                        <td class="">{{user_data.details.dob}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td class="">{{user_data.details.email}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class ='col-md-4'>
+          <h3>Update user</h3>
+    		<form role="form" (submit)='update_user($event)'>
+    			<!--<div class="form-group">-->
+    				 
+    			<!--	<label for="update_username">-->
+    			<!--		Username:   -->
+    			<!--	</label>-->
+    			<!--	<input id='update_username' [(ngModel)]='update_username' name="update_username" type="text">-->
+    			<!--</div>-->
+    			<div class="form-group">
+    				<label for="update_password">
+    					Password:
+    				</label>
+    				<input id='update_password' [(ngModel)]='update_password' type="password" name='update_password'>
+    			</div>
+    			<div class="form-group">
+    				<label for="update_fullname">
+    					Full name:   
+    				</label>
+    				<input id='update_fullname' [(ngModel)]='update_fullname' name="update_fullname" type="text">
+    			</div>    			
+    			<div class="form-group">
+    				<label for="update_dob">
+    					Dob:   
+    				</label>
+    				<input id='update_dob' [(ngModel)]='update_dob' type="text" name='update_dob'>
+    			</div>
+    			<div class="form-group">
+    				<label for="update_email">
+    					Email:   
+    				</label>
+    				<input id='update_email' [(ngModel)]='update_email' type="text" name='update_email'>
+    			</div>
+    			<button type="submit" class="btn btn-primary">
+    				Submit
+    			</button>
+    			</form>
+        </div>
+		<div class ='col-md-4'>
+		    
+		</div>
+    </div>
+</div>
+        
+        
+<!--<p>-->
+<!--  {{sessionData}}-->
+<!--</p>-->

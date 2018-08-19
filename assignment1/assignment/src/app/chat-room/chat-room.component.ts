@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ActivatedRoute} from "@angular/router";
 import {MongoService} from "../mongo.service";
+import {AuthguardService} from "../authguard.service";
 
 @Component({
   selector: 'app-chat-room',
@@ -15,11 +16,12 @@ export class ChatRoomComponent implements OnInit {
   channel_users:any
   username:any
   message:any
-  constructor(private mongo:MongoService, private router:Router, private route: ActivatedRoute) {
+  constructor(private mongo:MongoService, private router:Router, private route: ActivatedRoute, private authguard:AuthguardService) {
     // this.route.params.subscribe( params => this.room_id = params.toString())
   }
 
   ngOnInit() {
+    this.authguard.canActivate()
     this.route.params.subscribe( params => this.load_room(params))
     this.username = localStorage.getItem('username')
 

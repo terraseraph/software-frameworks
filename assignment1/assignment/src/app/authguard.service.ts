@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {MongoService} from "./mongo.service";
 
 
 @Injectable({
@@ -7,13 +8,16 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 })
 export class AuthguardService implements CanActivate {
 
-  constructor(private router: Router) { }
+  constructor(private mongo:MongoService, private router: Router) { }
 // canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
   canActivate() {
     var valid = localStorage.getItem('loggedIn')
     
     if (valid == "true") {
-      
+      var dat = JSON.parse(localStorage.getItem('session'))
+      var p_dat = JSON.parse(dat._body)
+      this.mongo.user_data = p_dat.user
+      console.log(p_dat)
       return true;
     } else {
       this.router.navigateByUrl('/login');
@@ -38,6 +42,7 @@ export class AuthguardService implements CanActivate {
           result.edit_users = true
           result.edit_user_group_admin = true
           result.edit_channels = true
+          result.edit_groups = true
           // return result
           break; 
        }
