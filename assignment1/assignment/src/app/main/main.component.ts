@@ -8,6 +8,12 @@ import {MethodsService} from "../methods.service";
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
+
+/**
+ * MainComponent class
+ * @constructor MainComponent
+ * 
+ */
 export class MainComponent implements OnInit {
   sessionData:string = '';
   user_data:any
@@ -32,6 +38,7 @@ export class MainComponent implements OnInit {
         this.methods.callComponentMethod();
   }
   
+  /** Parse the user data to store locally */
   parse_user_data(data, update = false){
     if(update){
       localStorage.setItem("session", JSON.stringify(data))
@@ -52,6 +59,7 @@ export class MainComponent implements OnInit {
     console.log("USER DATA MAIN: ", this.user_data)
   }
   
+  /** UI and database update user */
   update_user(event){
     event.preventDefault()
     var details_obj = {

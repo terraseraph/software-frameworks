@@ -19,7 +19,11 @@ export class RoomsListComponent implements OnInit {
   groups_list:any
   combined_list:any
 
-  
+/**
+ * RoomsListComponent class
+ * @constructor RoomsListComponent
+ * 
+ */
   constructor(private socket:SocketService, private mongo:MongoService, private router:Router, private methods:MethodsService) {
   }
 
@@ -32,7 +36,7 @@ export class RoomsListComponent implements OnInit {
     );
   }
   
-  //click event for room button
+  /** Click event for room button */
   chat_btn(id:any, name:any, users:any){
     this.socket.leave_channel(this.mongo.channel_id, name)
     this.mongo.channel_user_list = users
@@ -43,18 +47,19 @@ export class RoomsListComponent implements OnInit {
   }
   
   
-  //pre loading the list of rooms from the db
+  /** Preload list of groups from database */
   load_groups(){
     this.mongo.load_groups()
           .subscribe((groups => this.load_channels(groups) ));     
   }
   
+  /** Load the list of channels */
   load_channels(groups){
     this.mongo.load_channels()
           .subscribe((channels => this.create_list(groups, channels) ));    
   }
   
-  //creates rooms list for buttons
+  /** Creates list based on role */
   create_list(groups, channels){
     groups = JSON.parse(groups._body)
     channels = JSON.parse(channels._body)

@@ -4,19 +4,22 @@ import {Subject} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * MethodsService class
+ * @constructor MethodsService
+ * 
+ */
 export class MethodsService {
 
   constructor() { }
   
-  
-  
-  // Observable string sources
   private componentMethodCallSource = new Subject<any>();
   
   // Observable string streams
   componentMethodCalled$ = this.componentMethodCallSource.asObservable();
 
-  // Service message commands
+  /** Allows a call from one component to subscribe to another */
   callComponentMethod() {
     this.componentMethodCallSource.next();
   }

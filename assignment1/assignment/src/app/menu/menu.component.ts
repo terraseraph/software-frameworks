@@ -7,6 +7,12 @@ import {MongoService} from "../mongo.service";
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
+
+/**
+ * MenuComponent class
+ * @constructor MenuComponent
+ * 
+ */
 export class MenuComponent implements OnInit {
 
   constructor(private router:Router, private mongo:MongoService) { }
@@ -14,6 +20,7 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
   }
   
+  /** Logout */
   logout(){
     localStorage.setItem('loggedIn', "false")
     localStorage.setItem('session', "")

@@ -8,6 +8,11 @@ import {AuthguardService} from "./authguard.service";
   styleUrls: ['./app.component.css']
 })
 
+/**
+ * AppComponent class
+ * @constructor AppComponent
+ * 
+ */
 export class AppComponent {
   title = 'app';
   

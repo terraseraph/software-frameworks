@@ -6,10 +6,17 @@ import {MongoService} from "./mongo.service";
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * AuthguardService class
+ * @constructor AuthguardService
+ * 
+ */
 export class AuthguardService implements CanActivate {
 
   constructor(private mongo:MongoService, private router: Router) { }
-// canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+
+  /** Check to see if the user is logged in */
   canActivate() {
     var valid = localStorage.getItem('loggedIn')
     
@@ -25,6 +32,7 @@ export class AuthguardService implements CanActivate {
     }
   }
   
+  /** Check users role and set permissions */
   check_role(role){
     console.log("Checking role: ", role)
     var result = {
