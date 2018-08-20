@@ -1,5 +1,9 @@
 # 3813ICT Chat Assignment
 
+### Note
+
+This assignment also includes the mongoDB and socket.io implementation. To adhere to marking, some information is also saved to localstorage.
+
 ## Git
 
 The repository used contains all of the software frameworks lab exercises as well as the assignment.
