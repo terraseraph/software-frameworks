@@ -10,7 +10,7 @@ import {AuthguardService} from "./authguard.service";
 
 /**
  * AppComponent class
- * @constructor AppComponent
+ * 
  * 
  */
 export class AppComponent {
