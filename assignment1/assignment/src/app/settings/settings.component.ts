@@ -10,6 +10,12 @@ import {AuthguardService} from "../authguard.service";
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
+
+/**
+ * SettingsComponent class
+ * @constructor SettingsComponent
+ * 
+ */
 export class SettingsComponent implements OnInit {
   
   auth_role:any
@@ -55,17 +61,21 @@ export class SettingsComponent implements OnInit {
     this.get_groups()
     this.get_channels()
   }
-//=====Users=======/
+//=====Users=======/\
+
+  /** Get all users */
   get_users(msg = null){
     console.log(msg)
     this.mongo.get_users().subscribe((users => this.make_user_list(users)));
   }
   
+  /** create new user ui */
   new_user(event){
     event.preventDefault();
     this.create_user(this.new_username, this.new_password, this.new_role)
   }
   
+  /** push user to ui and db  */
   create_user(username, password, role){
     var data = {
       username : username,
@@ -76,6 +86,7 @@ export class SettingsComponent implements OnInit {
     this.users.push(data)    
   }
   
+  /** UI update user */
   update_user(id, username, password, role){
     this.update_username = username
     this.update_password = password
@@ -84,6 +95,7 @@ export class SettingsComponent implements OnInit {
     console.log("update user", id)
   }
   
+  /** Databse  push update user */
   confirm_update(event){
     // event.preventDefault()
     var data = {
@@ -95,6 +107,7 @@ export class SettingsComponent implements OnInit {
     this.mongo.update_user(data).subscribe((update => this.get_users(update)))
   }
   
+  /** Remove user */
   remove_user(user_id){
     var data = {
       id : user_id
@@ -104,12 +117,13 @@ export class SettingsComponent implements OnInit {
   
 //=====Groups====================
 
+  /** Get all groups */
   get_groups(msg = null){
     console.log(msg)
     this.mongo.load_groups().subscribe((groups => this.create_group_list(groups)));
   }
 
-
+  /** Create new group */
   new_group(){
     
     var data = {
@@ -120,7 +134,7 @@ export class SettingsComponent implements OnInit {
     this.mongo.add_group(data).subscribe((messages => this.get_groups(messages)))
   }
   
-  
+  /** Update group UI trigger */
   update_group(id, group_name, group_admins, group_users){
     console.log("update group", id, group_name, group_admins, group_users)
     this.update_group_id = id
@@ -130,7 +144,7 @@ export class SettingsComponent implements OnInit {
     console.log("update group", id)
   }   
 
-  //Some of this belongs in channel!!!
+  /** Push update to db */
   confirm_update_group(){
     // event.preventDefault()
     var grp = this.update_group_admins.toString()
@@ -159,6 +173,7 @@ export class SettingsComponent implements OnInit {
 
   }
 
+  /** Remove group */
   remove_group(group_id){
     var data = {
       id : group_id
@@ -170,7 +185,7 @@ export class SettingsComponent implements OnInit {
 
 //========Channels=========================/
 
-
+  /** Get all channels */
   get_channels(msg = null){
     console.log(msg)
     this.mongo.load_channels().subscribe((channels => this.create_channel_list(channels)));
@@ -185,6 +200,7 @@ export class SettingsComponent implements OnInit {
     console.log("update user", id)
   }  
   
+  /** Push channel updates to db */
   confirm_update_channel(){
     // event.preventDefault()
     var usr = this.update_channel_users.toString()
@@ -206,6 +222,7 @@ export class SettingsComponent implements OnInit {
 
   }
   
+  /** Create new channel */
   new_channel(){
     
     var data = {
@@ -217,6 +234,8 @@ export class SettingsComponent implements OnInit {
     this.mongo.add_channel(data).subscribe((messages => this.get_channels(messages)))
   }
   
+  
+  /** Create list of channels */
   create_list(messages){
     var message = JSON.parse(messages._body)
     console.log(message.message)
@@ -224,6 +243,8 @@ export class SettingsComponent implements OnInit {
     this.methods.callComponentMethod();
   }
   
+  
+  /** Check if user exists to create one */
   user_exists(users){
     var arr = []
     for (var i = 0 ; i < this.mongo.user_list.length; i++){
@@ -239,6 +260,7 @@ export class SettingsComponent implements OnInit {
     }
   }
   
+  /** Remove channel */
   remove_channel(channel_id){
     var data = {
       id : channel_id
@@ -253,6 +275,8 @@ export class SettingsComponent implements OnInit {
 
 
 //=====Helper functions=====
+
+  /** Create list of groups helper */
   create_group_list(messages){
     var message = JSON.parse(messages._body)
     console.log(message.message)
@@ -260,7 +284,7 @@ export class SettingsComponent implements OnInit {
     this.methods.callComponentMethod();
   }
   
-  
+  /** create channel list helper */
   create_channel_list(messages){
     var message = JSON.parse(messages._body)
     console.log(message.message)
@@ -268,6 +292,7 @@ export class SettingsComponent implements OnInit {
     this.methods.callComponentMethod();
   } 
   
+  /** Create user list helper */
   make_user_list(users){
     var dat = JSON.parse(users._body)
     this.mongo.user_list = dat.message;
@@ -275,6 +300,7 @@ export class SettingsComponent implements OnInit {
     console.log("USERS",dat.message)
   }
   
+  /** Prevent form post submit */
   prevent_submit(event){
     event.preventDefault()
   }

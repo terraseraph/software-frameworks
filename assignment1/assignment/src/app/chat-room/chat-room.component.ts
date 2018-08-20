@@ -13,6 +13,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './chat-room.component.html',
   styleUrls: ['./chat-room.component.css']
 })
+
+/**
+ * ChatRoomComponent class
+ * @constructor ChatRoomComponent
+ * 
+ */
 export class ChatRoomComponent implements OnInit {
   channel_id:any
   channel_name:any
@@ -38,6 +44,7 @@ export class ChatRoomComponent implements OnInit {
 
   }
   
+  /** Loads the chat room */
   load_room(params = null){
     console.log(params)
     this.channel_id = params.id
@@ -52,7 +59,7 @@ export class ChatRoomComponent implements OnInit {
     }, 100);
     }
       
-  
+  /** Loads the saved messages */
   load_messages(messages){
     var packet = JSON.parse(messages._body)
     console.log(packet.message)
@@ -60,7 +67,7 @@ export class ChatRoomComponent implements OnInit {
     
   }
   
-  //Send message for saving, also loads into current message array
+  /** Send message for saving, also loads into current message array */
   send_message(event){
     event.preventDefault();
     console.log(this.message)
@@ -78,6 +85,7 @@ export class ChatRoomComponent implements OnInit {
   
   //===============Sockets===================//
   
+  /** Subscribe to current channel */
   chat_subscribe(){
     console.log("Joining room: ", this.channel_id)
     this.chat_subscription = this.socket
@@ -93,12 +101,13 @@ export class ChatRoomComponent implements OnInit {
     });
   }
   
+  /** Send message to socket */
   sendMessage() {
     this.socket.sendMessage(this.channel_id, this.message, this.username);
   }
   
   
-  
+  /** When leaving the room, unsubscribe from socket */
   chat_unsubscribe() {
     if(!this.first_load){
       this.chat_subscription.unsubscribe();

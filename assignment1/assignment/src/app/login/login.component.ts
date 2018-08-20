@@ -8,6 +8,12 @@ import {MongoService} from "../mongo.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+/**
+ * LoginComponent class
+ * @constructor LoginComponent
+ * 
+ */
 export class LoginComponent implements OnInit {
   username:string = '';
   password:string = '';
@@ -19,31 +25,15 @@ export class LoginComponent implements OnInit {
     }
   }
   
+  /** Login check via database */
   loginUser(event){
     event.preventDefault();
     console.log(this.username, this.password)
-    // if(this.mongo.user_login({username: this.username, password : this.password})){
-    //   console.log('MONGO LOGIN WORKS')
-    // }
     this.mongo.user_login({username: this.username, password : this.password})
         .subscribe((data => this.login_success(data)))
-    // if(this.username == 'admin' && this.password =='123'){
-    //   this.router.navigateByUrl('/main')
-    //   var data = {
-    //     id        : '1',
-    //     username  : this.username,
-    //     name      : "admin guy",
-    //     age       : "90",
-    //     dob       : "20/1/1928"
-    //   }
-    //   localStorage.setItem("session", JSON.stringify(data))
-    //   localStorage.setItem("username", this.username)
-    // }
-    // else{
-    //   console.log('Login fail')
-    // }
   }
   
+  /** Login successful, get user data */
   login_success(data){
     var dat = JSON.parse(data._body)
     console.log(dat)

@@ -8,6 +8,13 @@ import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
+
+/**
+ * MongoService class
+ * @constructor MongoService
+ * 
+ */
 export class MongoService {
   
   public user_data:any
@@ -49,7 +56,7 @@ export class MongoService {
   
   constructor(private http: Http) { }
   
-  
+  /** Load chat room */
   load_chat_room(id): Observable<any>{
     var dat = {
       channel_id : id
@@ -59,6 +66,7 @@ export class MongoService {
 
   }
   
+  /** Send message */
   send_message(data): Observable<any>{
     //PUT SOCKET INFO HERE
     return this.http.post(this.sendMessageUrl, data)
@@ -66,48 +74,58 @@ export class MongoService {
   
   
 //========Channels==================================
+
+  /** Create channel */
   add_channel(data): Observable<any>{
     console.log(data)
     return this.http.post(this.add_channel_url, data)
   }  
   
+  /** Update Channel */
   update_channel(data): Observable<any>{
     return this.http.post(this.update_channel_url, data)
   }
   
+  /** Load channel */
   load_channel(id): Observable<any>{
     return this.http.get(`this.all_channel_url/${id}`)
   }  
   
+  /** Load all channels */
   load_channels(): Observable<any>{
     return this.http.get(this.all_channel_url)
   }
   
-  
+  /** Remove a channel */
   remove_channel(data): Observable<any>{
     return this.http.post(this.remove_channel_url, data)
   }
   
   
 //========Groups==================================
+  
+  /** Create a group */
   add_group(data): Observable<any>{
     console.log(data)
     return this.http.post(this.add_group_url, data)
   }
   
+  /** Update group */
   update_group(data): Observable<any>{
     return this.http.post(this.update_group_url, data)
   }
   
+  /** Load a group */
   load_group(id): Observable<any>{
     return this.http.get(`${this.all_groups_url}/${id}`)
   }  
   
+  /** Load all groups */
   load_groups(): Observable<any>{
     return this.http.get(this.all_groups_url)
   }
   
-  
+  /** Remove a group */
   remove_group(data): Observable<any>{
     return this.http.post(this.remove_group_url, data)
   }
@@ -116,43 +134,47 @@ export class MongoService {
   
   
 //=======Users======================================
+  
+  /** Get all users */
   get_users(): Observable<any>{
     return this.http.get(this.get_users_url);
   }
   
-  set_users(){
-    return "setting users";
-  }
-  
+  /** Create user */
   new_user(data): Observable<any>{
     
     return this.http.post(this.add_user_url, data)
   }
   
+  /** Update a user */
   update_user(data): Observable<any>{
     return this.http.post(this.update_user_url, data)
   }
   
+  /** Remove a user */
   remove_user(data): Observable<any>{
     return this.http.post(this.remove_user_url, data)
   }
   
+  /** Login a user */
   user_login(user):Observable<any>{
     return this.http.post(this.login_user_url, user)
   }
   
-  //Data handling functions
+  /** Handle data */
   private handleData(res: any) {
       let body = res.json();
       console.log(body);
       return body || {};
   }
-   
+  
+  /** Handle error */
   private handleError(error: any): Promise<any> {
     console.error('ERROR', error);
     return Promise.reject(error.message || error);
   }
   
+  /** On logout, reset user creds */
   public reset_login(){
     this.user_id = null
     this.user_name = null
