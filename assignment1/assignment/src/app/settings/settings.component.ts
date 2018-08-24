@@ -24,6 +24,7 @@ export class SettingsComponent implements OnInit {
   new_username:any
   new_password:any
   new_role:any
+  new_email:any
   
   update_username:any
   update_password:any
@@ -72,16 +73,24 @@ export class SettingsComponent implements OnInit {
   /** create new user ui */
   new_user(event){
     event.preventDefault();
-    this.create_user(this.new_username, this.new_password, this.new_role)
+    this.create_user(this.new_username, this.new_password, this.new_role, this.new_email)
   }
   
   /** push user to ui and db  */
-  create_user(username, password, role){
+  create_user(username, password, role, email){
+    var det = {
+      dob : " ",
+      email : this.new_email,
+      fullname : " "
+    }
     var data = {
       username : username,
       password : password,
-      role : role
+      role : role,
+      details : det,
+      email : email
     }
+    console.log(data)
     this.mongo.new_user(data).subscribe((userDetails => this.get_users(userDetails)))
     this.users.push(data)    
   }

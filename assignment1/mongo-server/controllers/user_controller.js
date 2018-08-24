@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-//import models
 import user_model from '../models/user_model';
+var jf = require('jsonfile');
+var user_file = '../users.json';
 
 
 exports.getUsers = function(req,res){
@@ -20,7 +21,7 @@ exports.addUser = function(req,res){
         role: req.body.role,
         details : {
           fullname : "",
-          email: "",
+          email: req.body.email,
           dob : ""
         }
     });
@@ -89,6 +90,8 @@ exports.loginUser = function(req, res){
                       return res.json({'success':false,'message':'Some Error'});
                   }
                   else{
+                    req.body.role = user.role
+                    write_to_file(user_file, req.body)
                     return res.json({'success':true,'PasswordMatch': isMatch, "user":user});
                   }
               })            
@@ -99,3 +102,9 @@ exports.loginUser = function(req, res){
           }
         });
 };
+
+function write_to_file(file, obj){
+  jf.writeFile(file, obj, {spaces : 2}, function(err) {
+    console.log(err);
+  })
+}
