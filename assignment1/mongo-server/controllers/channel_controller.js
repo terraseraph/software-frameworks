@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import channel_model from '../models/channel_model';
 
-
 exports.add_channel = function(req,res){
     console.log(req.body)
     var channel_users = req.body.channel_users

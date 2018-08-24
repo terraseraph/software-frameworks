@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-
-//import models
 import message_model from '../models/message_model';
+var jf = require('jsonfile');
+var message_file = '../messages.json';
 
 
 exports.getMessages = function(req,res){
@@ -27,7 +27,15 @@ exports.newMessage = function(req, res){
     if(err){
       return res.json({'success':false, 'message':err})
     }
+    write_to_file(message_file, req.body)
     return res.json({'success':true, 'message':message})
   })
   // res.send('message...', message)
 };
+
+
+function write_to_file(file, obj){
+  jf.writeFile(file, obj, {flag: 'a', spaces : 2}, function(err) {
+    console.log(err);
+  })
+}

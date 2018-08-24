@@ -24,6 +24,8 @@ export class MenuComponent implements OnInit {
   logout(){
     localStorage.setItem('loggedIn', "false")
     localStorage.setItem('session', "")
+    localStorage.setItem('username', "")
+    localStorage.setItem('role', "")
     this.mongo.reset_login()
     this.router.navigateByUrl(`/login`)
   }
