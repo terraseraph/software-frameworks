@@ -18,6 +18,7 @@ export class MainComponent implements OnInit {
   
   login(){
      this.chat.username = this.username
+     localStorage.setItem('username', this.username)
      this.router.navigateByUrl(`/chat`)
   }
 

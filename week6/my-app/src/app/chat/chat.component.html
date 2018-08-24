@@ -16,11 +16,11 @@
           </table>
       </div>
     </div>
-          <div class="row controls">
-            <form role="form" (submit)='send_message($event)'>
-              <div class="input-append span7">
-                <input type="text" class="span6" ng-model="text" name='message' [(ngModel)]='message' placeholder="Message">
-                <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!text">
-              </div>
-            </form>
-          </div>
+    <div class="row controls">
+      <form role="form" (submit)='send_message($event)'>
+        <div class="input-append span7">
+          <input type="text" class="span6" ng-model="text" name='message' [(ngModel)]='message' placeholder="Message">
+          <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!text">
+        </div>
+      </form>
+    </div>
