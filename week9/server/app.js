@@ -1,6 +1,6 @@
-import express from 'express';
-import path from 'path';
-import bodyParser from 'body-parser';
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const cors = require('cors');
@@ -25,23 +25,23 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'week9';
 
 // Use connect method to connect to the server
-MongoClient.connect(url, function(err, client) {
-  assert.equal(null, err);
-  console.log("Connected successfully to server");
+// MongoClient.connect(url, function(err, client) {
+//   assert.equal(null, err);
+//   console.log("Connected successfully to server");
 
-  const db = client.db(dbName);
-  create.insertDocuments(db, function() {
-    update.updateDocument(db, function() {
-      Delete.removeDocument(db, function() {
-        read.findDocuments(db, function(res){
-            console.log(res)
-            client.close();
+//   const db = client.db(dbName);
+//   create.insertDocuments(db, function() {
+//     update.updateDocument(db, function() {
+//       Delete.removeDocument(db, function() {
+//         read.findDocuments(db, function(res){
+//             console.log(res)
+//             client.close();
             
-        })
-      });
-    });
-  });
-});
+//         })
+//       });
+//     });
+//   });
+// });
 
 
 //GET ALL PRODUCTS
@@ -50,12 +50,27 @@ app.get('/products', function(req, res){
     assert.equal(null, err);
     console.log("Connected successfully to server");
     const db = client.db(dbName);
-    read.findDocuments(db, function(res){
-        console.log(res)
-        client.close();
+    read.getAllDocuments(db, function(data){
+        console.log(data)
+        res.send(data)
     })    
   });  
 })
+
+
+//Search PRODUCTS
+app.get('/products/:name', function(req, res){
+  MongoClient.connect(url, function(err, client) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+    const db = client.db(dbName);
+    read.searchDocuments(db, req.params.name, function(data){
+        console.log(data)
+        res.send(data)
+    })    
+  });  
+})
+
 
 
 //Create new product
@@ -64,7 +79,8 @@ app.post('/products', function(req, res){
     assert.equal(null, err);
     console.log("Connected successfully to server");
     const db = client.db(dbName);
-    create.insertDocuments(db, function() {
+    create.createProduct(db, req.body, function(data) {
+      res.send(data)
     });
   });  
 })
@@ -75,7 +91,8 @@ app.put('/products', function(req, res){
     assert.equal(null, err);
     console.log("Connected successfully to server");
     const db = client.db(dbName);
-    update.updateDocument(db, function() {
+    update.updateDocument(db, req.body, function(data) {
+      res.send(data)
     });
 
   });
@@ -86,9 +103,10 @@ app.put('/products', function(req, res){
 app.delete('/products/:id', function(req, res){
   MongoClient.connect(url, function(err, client) {
     assert.equal(null, err);
-    console.log("Connected successfully to server");
+    console.log("Connected successfully to server", req.params.id);
     const db = client.db(dbName);
-      Delete.removeDocument(db, function() {
+      Delete.removeDocument(db, req.params.id, function(data) {
+        res.send(data)
       });
 
   });  

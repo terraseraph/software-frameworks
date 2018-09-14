@@ -263,7 +263,7 @@ export class SettingsComponent implements OnInit {
       console.log(arr)
       if (!arr.includes(users[i])){
         console.log("USER NOT EXISTS")
-        this.create_user(users[i], "123", "user")
+        this.create_user(users[i], "123", "user", "-")
         this.mongo.user_list.push(users[i])
       }
     }
