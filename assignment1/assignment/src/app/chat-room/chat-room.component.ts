@@ -54,10 +54,10 @@ export class ChatRoomComponent implements OnInit {
           .subscribe((messages => this.load_messages(messages) ));                    
     setTimeout(() => {
         console.log('Joining Channel');
-        this.socket.join_channel(this.channel_id, this.mongo.user_data.username)
+        this.socket.join_channel(this.channel_id, this.mongo.user_data.username);
         this.first_load = false
     }, 100);
-    }
+  }
       
   /** Loads the saved messages */
   load_messages(messages){
@@ -102,8 +102,8 @@ export class ChatRoomComponent implements OnInit {
   }
   
   /** Send message to socket */
-  sendMessage() {
-    this.socket.sendMessage(this.channel_id, this.message, this.username);
+  sendMessage(id = this.channel_id, msg = this.message, usr = this.username) {
+    this.socket.sendMessage(id, msg, usr);
   }
   
   

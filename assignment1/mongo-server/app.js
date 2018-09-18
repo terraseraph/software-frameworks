@@ -39,14 +39,17 @@ io.on('connection', function(socket){
     console.log("message: "+ msg)
   });
   
-socket.on('subscribe', function(room) {
+socket.on('subscribe', function(room, cb) {
     console.log('joining room', room);
     socket.join(room);
+    cb('subscribed')
+    // io.sockets.in(room).emit('message',{message: "JOINED ROOM"});
 });
 
-socket.on('unsubscribe', function(room) {
+socket.on('unsubscribe', function(room, cb) {
     console.log('leaving room', room);
     socket.leave(room);
+    cb('unsubscribed')
 });
 
 socket.on('message', function(data) {

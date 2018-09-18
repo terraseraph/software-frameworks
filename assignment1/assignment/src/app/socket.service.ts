@@ -34,17 +34,25 @@ export class SocketService {
   
   /** Join a channel */
   join_channel(channel_id, username){
-    this.socket.emit('subscribe', channel_id, function(){
-      this.sendMessage(channel_id, `${username} has joined the room`)
+    this.socket.emit('subscribe', channel_id, function(dat){
+      console.log("JOINING CHANNEL");
+      console.log(dat);
     })
+    setTimeout(() => {
+     this.sendMessage(channel_id, `${username} has joined the room`, username)
+    }, 100);
   }
   
+  // `${username} has joined the room`
   
   /** Leave a channel */
   leave_channel(channel_id, username){
-    this.socket.emit('unsubscribe', channel_id, function(){
-      this.sendMessage(channel_id, `${username} has left the room`)
+    this.socket.emit('unsubscribe', channel_id, function(dat){
+      console.log(dat)
     })
+    setTimeout(() => {
+     this.sendMessage(channel_id, `${username} has left the room`, username)
+    }, 100);
   }
 
   /** Get all messages for the channel */
