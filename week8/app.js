@@ -20,12 +20,12 @@ MongoClient.connect(url, function(err, client) {
   create.insertDocuments(db, function() {
     update.updateDocument(db, function() {
       Delete.removeDocument(db, function() {
+        read.findDocuments(db, function(res){
+            console.log(res)
+            client.close();
+            
+        })
       });
     });
   });
-  read.findDocuments(db, function(res){
-      console.log(res)
-    //   client.close();
-      
-  })
 });
