@@ -11,12 +11,11 @@ exports.getAllDocuments = function(db, callback) {
   });
 }
 
-
-exports.searchDocuments = function(db, name, callback) {
+exports.searchDocuments = function(db, data, callback) {
   // Get the documents collection
   const collection = db.collection('products');
   // Find some documents
-  collection.find({name : name}).toArray(function(err, docs) {
+  collection.find( {$or : [{name : data.value}, {description : data.value}]}).toArray(function(err, docs) {
     assert.equal(err, null);
     console.log("Found the following records");
     console.log(docs)

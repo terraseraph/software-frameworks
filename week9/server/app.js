@@ -59,15 +59,15 @@ app.get('/products', function(req, res){
 
 
 //Search PRODUCTS
-app.get('/products/:name', function(req, res){
+app.post('/products/search', function(req, res){
   MongoClient.connect(url, function(err, client) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
     const db = client.db(dbName);
-    read.searchDocuments(db, req.params.name, function(data){
+    read.searchDocuments(db, req.body, function(data){
         console.log(data)
         res.send(data)
-    })    
+    })
   });  
 })
 

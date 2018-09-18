@@ -13,29 +13,30 @@ export class MongoService {
   constructor(private http: Http) { }
   
   /** Load all product */
-  get_all_products(): Observable<any>{
+  get_all_products(data): Observable<any>{
     console.log(data)
-    return this.http.get(this.api, result)
+    return this.http.get(this.api)
   }  
   
   /** Load product */
   search_products(data): Observable<any>{
-    return this.http.get(this.api + data, result)
+    console.log(data)
+    return this.http.post(this.api + 'search', data)
   }
   
   /** Create product */
   create_product(data): Observable<any>{
-    return this.http.post(this.api, data, result)
+    return this.http.post(this.api, data)
   }  
   
   /** Update product */
   update_product(data): Observable<any>{
-    return this.http.put(this.api, data, result)
+    return this.http.put(this.api, data)
   }
   
   /** Remove a product */
   remove_product(data): Observable<any>{
-    return this.http.delete(this.api + data, result)
+    return this.http.delete(this.api + data)
   }  
   
 }
