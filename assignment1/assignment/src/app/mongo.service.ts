@@ -161,6 +161,17 @@ export class MongoService {
     return this.http.post(this.login_user_url, user)
   }
   
+  /** upload image to user profile */
+  upload_image(fd):Observable<any>{
+    return this.http.post(this.api+'/users/upload', fd)
+    // return this.http.post<any>('http://software-frameworks-terra/seraph.c9users.io:8081/file_upload', fd)
+  }
+  
+  /** Get images from server */
+  get_image(name):Observable<any>{
+    return this.http.post('http://software-frameworks-terraseraph.c9users.io:8081'+'/images/'+name)
+  }
+  
   /** Handle data */
   private handleData(res: any) {
       let body = res.json();
@@ -182,3 +193,29 @@ export class MongoService {
   }
 
 }
+
+
+// uploadFileToUrl(files, restObj, uploadUrl): Promise<any> {
+//   // Note that setting a content-type header
+//   // for mutlipart forms breaks some built in
+//   // request parsers like multer in express.
+//   const options = {} as any; // Set any options you like
+//   const formData = new FormData();
+
+//   // Append files to the virtual form.
+//   for (const file of files) {
+//     formData.append(file.name, file)
+//   }
+
+//   // Optional, append other kev:val rest data to the form.
+//   Object.keys(restObj).forEach(key => {
+//     formData.append(key, restObj[key]);
+//   });
+
+//   // Send it.
+//   return this.httpClient.post(uploadUrl, formData, options)
+//     .toPromise()
+//     .catch((e) => {
+//       // handle me
+//     });
+// }
