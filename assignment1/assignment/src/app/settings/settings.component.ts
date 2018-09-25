@@ -51,6 +51,9 @@ export class SettingsComponent implements OnInit {
   
   settings_channels_list
   
+  formError:any
+  form_has_errors:any
+  
   
   constructor(private mongo:MongoService, private methods:MethodsService, private authguard:AuthguardService) { }
 
@@ -67,6 +70,13 @@ export class SettingsComponent implements OnInit {
   /** Get all users */
   get_users(msg = null){
     console.log(msg)
+    if(msg != null){
+      var pmsg = JSON.parse(msg._body)
+      if(pmsg.success == false){
+        this.form_has_errors = true
+        this.formError = 'User already exists'
+      }
+    }
     this.mongo.get_users().subscribe((users => this.make_user_list(users)));
   }
   
@@ -93,6 +103,7 @@ export class SettingsComponent implements OnInit {
     console.log(data)
     this.mongo.new_user(data).subscribe((userDetails => this.get_users(userDetails)))
     this.users.push(data)    
+
   }
   
   /** UI update user */

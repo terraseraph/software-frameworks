@@ -30,16 +30,18 @@
         </div>
           <div class="row controls">
             <form role="form" (submit)='send_message($event)'>
-              <div class="input-append span7">
-                <input type="text" class="span6" ng-model="text" name='message' [(ngModel)]='message' placeholder="Message">
+              <div class="form-group">
+                <input class="form-control" name='message'[(ngModel)]='message' placeholder="Message" required>
               </div>
         			<div class="form-group">
         				<label for="send_image">
-        					Profile Image:
+        					Image:
         				</label>
-        				<input id='send_image' (change)='onFileSelected($event)' [(ngModel)]='send_image' type="file" name='send_image'>
+        				<input id='send_image' class="form-control" (change)='onFileSelected($event)' [(ngModel)]='send_image' type="file" name='send_image'>
         			</div>
-        			<!--<input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!text">-->
+              <div *ngIf="message == undefined || message == ''" class="alert alert-danger">
+                Message is required
+              </div>
         			<button class="span1 btn btn-primary" type='submit'>
         				Submit
         			</button>

@@ -5,6 +5,8 @@ import {MongoService} from "../mongo.service";
 import {AuthguardService} from "../authguard.service";
 import {SocketService} from "../socket.service";
 import { OnDestroy } from "@angular/core";
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 // import { ISubscription } from "rxjs/Subscription";
 import { Subscription } from 'rxjs';
 
@@ -32,9 +34,19 @@ export class ChatRoomComponent implements OnInit {
   send_image:any
   selected_image:any
   image_api_url = 'http://software-frameworks-terraseraph.c9users.io:8081/api/images/'
+  form_errors = true
   
   
-  constructor(private socket:SocketService, private mongo:MongoService, private router:Router, private route: ActivatedRoute, private authguard:AuthguardService) {
+  constructor(private socket:SocketService,
+    private mongo:MongoService,
+    private router:Router,
+    private route: ActivatedRoute,
+    private authguard:AuthguardService,
+    // private formGroup:FormGroup,
+    // private validators:Validators,
+    // private formBuilder:FormBuilder,
+    // private formControl:FormControl,
+    private formsModule:FormsModule) {
     // this.route.params.subscribe( params => this.room_id = params.toString())
   }
 

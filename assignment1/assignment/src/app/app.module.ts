@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {CanActivate, RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -34,7 +35,7 @@ import { SocketService } from './socket.service';
     ]),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
   ],
   providers: [SocketService],
   bootstrap: [AppComponent]
