@@ -29,7 +29,7 @@ export class MongoService {
   
   public channel_user_list:any
   
-  private api = `http://software-frameworks-terraseraph.c9users.io:8081/api`;
+  public api = `http://software-frameworks-terraseraph.c9users.io:8081/api`;
   
   private add_group_url = `${this.api}/group/add_group`;
   private update_group_url = `${this.api}/group/update_group`;
@@ -169,7 +169,7 @@ export class MongoService {
   
   /** Get images from server */
   get_image(name):Observable<any>{
-    return this.http.post('http://software-frameworks-terraseraph.c9users.io:8081'+'/images/'+name)
+    return this.http.get(this.api +'/images/'+name)
   }
   
   /** Handle data */

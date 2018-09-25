@@ -62,7 +62,7 @@ export class MainComponent implements OnInit {
     this.update_fullname = data.details.fullname
     this.update_dob = data.details.dob
     this.update_email = data.details.email
-    this.profile_image = data.image
+    this.profile_image = this.mongo.api+'/images/'+data.image
     console.log("USER DATA MAIN: ", this.user_data)
   }
   
@@ -96,9 +96,9 @@ export class MainComponent implements OnInit {
       this.image_path = `${res.data.name}`;
       data.image = this.image_path;
       this.mongo.update_user(data).subscribe((update => {
-        this.parse_user_data(update, true)))
-        get_user_image
-      }
+        this.parse_user_data(update, true)
+        this.get_user_image()
+      }))
     })
   }
   
@@ -116,5 +116,7 @@ export class MainComponent implements OnInit {
   }
   
   get_user_image(){
-    this.mongo.get_image(this.user_data._id+".jpg").subscribe((image => this.profile_image = image))
+    this.mongo.get_image(this.user_data._id+".jpg").subscribe((image => {this.profile_image = image}))
+}
+  
 }

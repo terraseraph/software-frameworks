@@ -12,6 +12,7 @@ const os = require('os');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server, { origins: '*:*'});
+const message_controller = require('./controllers/message_controller')
 app.use(cors());
 app.use(fileUpload());
 
@@ -41,17 +42,36 @@ io.on('connection', function(socket){
   });
   
 socket.on('subscribe', function(room, cb) {
-    console.log('joining room', room);
-    socket.join(room);
+    console.log('joining room', room.id);
+    socket.join(room.id);
+    var join_data = {
+      message : room.username+" JOINED ROOM",
+      channel_id : room.id,
+      username : "SYSTEM",
+      user : "SYSTEM",
+      user_id : "blank",
+      image: "blank.jpg"
+    }
+    message_controller.save_message(join_data, function(data){
+      io.sockets.in(room.id).emit('message',{message: join_data});
+    })
     cb('subscribed')
-    io.sockets.in(room).emit('message',{message: "JOINED ROOM"});
 });
 
 socket.on('unsubscribe', function(room, cb) {
-    console.log('leaving room', room);
-    socket.leave(room);
+    console.log('leaving room', room.id);
+    socket.leave(room.id);
+      var leave_data = {
+      message : room.username+"USER LEFT ROOM",
+      channel_id : room.id,
+      username : "SYSTEM",
+      user : "SYSTEM",
+      user_id : "blank",
+      image: "blank.jpg"
+    }
+    message_controller.save_message(leave_data, console.log)
+    io.sockets.in(room.id).emit('message',{message: leave_data});
     cb('unsubscribed')
-    io.sockets.in(room).emit('message',{message: "LEFT ROOM"});
 });
 
 socket.on('message', function(data) {
@@ -112,10 +132,11 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // add Source Map Support
 SourceMapSupport.install();
 app.use('/api', mongo_routes);
-app.get('/images/:image_name', function (req, res) {
-    var img  = req.params.image_name
-    res.sendFile(path.join(__dirname,`userImages/${img}`));
-});
+
+// app.get('/images/:image_name', function (req, res) {
+//     var img  = req.params.image_name
+//     res.sendFile(path.join(__dirname,`userImages/${img}`));
+// });
 
 app.get('/', (req,res) => {
   return res.end('Api working');

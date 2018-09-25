@@ -72,6 +72,9 @@ router.route('/chat/message')
 router.route('/chat/room_messages')
         .post(message_controller.getMessages);
         
+router.route('/chat/upload')
+        .post(file_controller.save_image)
+        
         
 //===========Channels========
 
@@ -90,5 +93,10 @@ router.route('/channel')
         
 router.route('/channel/remove_channel')
         .post(channel_controller.remove_channel)
+        
+        
+//==========Images==============
+router.route('/images/:image_name')
+        .get(file_controller.get_image)
         
 export default router;
