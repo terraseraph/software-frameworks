@@ -19,7 +19,7 @@ exports.addUser = function(req,res){
         username: req.body.username,
         password: req.body.password,
         role: req.body.role,
-        image: "",
+        image: "blank.jpg",
         details : {
           fullname : "",
           email: req.body.email,

@@ -128,6 +128,9 @@
           			<button type="submit" class="btn btn-primary">
           				Submit
           			</button>
+        			<div *ngIf="form_has_errors" class="alert alert-danger">
+      					{{formError}}
+      				</div>
           		</form>   
           	</div>	
 
@@ -184,6 +187,9 @@
           			<button type="submit" class="btn btn-primary">
           				Submit
           			</button>
+        			<div *ngIf="form_has_errors" class="alert alert-danger">
+      					{{formError}}
+      				</div>          			
           		</form>
           	</div>
 					</div>

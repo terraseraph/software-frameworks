@@ -6,7 +6,7 @@ var Groups = new Schema({
     type: Date,
     default: Date.now
   },
-  group_name: String,
+  group_name: { type: String, required: true, index: { unique: true } },
   group_admins: Array,
   group_users: Array
 });

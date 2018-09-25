@@ -139,6 +139,13 @@ export class SettingsComponent implements OnInit {
 
   /** Get all groups */
   get_groups(msg = null){
+    if(msg != null){
+      var pmsg = JSON.parse(msg._body)
+      if(pmsg.success == false){
+        this.form_has_errors = true
+        this.formError = 'Group already exists'
+      }
+    }
     console.log(msg)
     this.mongo.load_groups().subscribe((groups => this.create_group_list(groups)));
   }
@@ -207,6 +214,13 @@ export class SettingsComponent implements OnInit {
 
   /** Get all channels */
   get_channels(msg = null){
+    if(msg != null){
+      var pmsg = JSON.parse(msg._body)
+      if(pmsg.success == false){
+        this.form_has_errors = true
+        this.formError = 'Channel already exists'
+      }
+    }
     console.log(msg)
     this.mongo.load_channels().subscribe((channels => this.create_channel_list(channels)));
   }

@@ -6,7 +6,7 @@ var Channel = new Schema({
     type: Date,
     default: Date.now
   },
-  channel_name: String,
+  channel_name: { type: String, required: true, index: { unique: true } },
   group_id: String,
   channel_users: Array
 });

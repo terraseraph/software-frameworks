@@ -17,6 +17,9 @@ import {MongoService} from "../mongo.service";
 export class LoginComponent implements OnInit {
   username:string = '';
   password:string = '';
+  form_has_errors:any;
+  formError:any;
+  
   constructor(private mongo:MongoService, private router:Router, private form:FormsModule) { }
 
   ngOnInit() {
@@ -48,6 +51,10 @@ export class LoginComponent implements OnInit {
       this.mongo.user_role = dat.user.role
       this.mongo.user_data = dat.user
       console.log("Logged in as ", dat.user.username)
+    }
+    else{
+      this.form_has_errors = true
+      this.formError = 'Invalid Login'
     }
   }
 
