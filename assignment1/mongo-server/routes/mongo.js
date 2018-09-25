@@ -3,7 +3,24 @@ import * as user_controller from '../controllers/user_controller';
 import * as group_controller from '../controllers/group_controller';
 import * as message_controller from '../controllers/message_controller';
 import * as channel_controller from '../controllers/channel_controller';
+import * as file_controller from '../controllers/file_controller';
 const router = express.Router();
+var multer  = require('multer')
+
+
+
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//           console.log(req, file)
+//     cb(null, './userImages')
+//   },
+//   filename: function (req, file, cb) {
+//           console.log(req, file)
+//     cb(null, file.fieldname + '-' + Date.now())
+//   }
+// })
+ 
+// var upload = multer({ storage: storage })
 
 
 router.route('/users')
@@ -22,6 +39,9 @@ router.route('/users/remove')
       
 router.route('/users/login')
         .post(user_controller.loginUser);
+        
+router.route('/users/upload')
+        .post(file_controller.save_image)
         
         
 //Chat api below
@@ -52,6 +72,9 @@ router.route('/chat/message')
 router.route('/chat/room_messages')
         .post(message_controller.getMessages);
         
+router.route('/chat/upload')
+        .post(file_controller.save_image)
+        
         
 //===========Channels========
 
@@ -70,5 +93,10 @@ router.route('/channel')
         
 router.route('/channel/remove_channel')
         .post(channel_controller.remove_channel)
+        
+        
+//==========Images==============
+router.route('/images/:image_name')
+        .get(file_controller.get_image)
         
 export default router;

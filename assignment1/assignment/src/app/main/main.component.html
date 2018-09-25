@@ -1,6 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-4">
+		    <img width='100px' height='100px' src="{{profile_image}}"/>
             <table class="table table-striped table-bordered">
                 <tbody>
                     <tr>
@@ -26,7 +27,7 @@
         </div>
         <div class ='col-md-4'>
           <h3>Update user</h3>
-    		<form role="form" (submit)='update_user($event)'>
+    		<form role="form" (submit)='update_user($event)' enctype="multipart/form-data">
     			<div class="form-group">
     				<label for="update_password">
     					Password:
@@ -51,13 +52,18 @@
     				</label>
     				<input id='update_email' [(ngModel)]='update_email' type="text" name='update_email'>
     			</div>
+    			<div class="form-group">
+    				<label for="update_image">
+    					Profile Image:
+    				</label>
+    				<input id='update_image' (change)='onFileSelected($event)' [(ngModel)]='update_image' type="file" name='update_image'>
+    			</div>
     			<button type="submit" class="btn btn-primary">
     				Submit
-    			</button>
+    			</button> 
     			</form>
         </div>
 		<div class ='col-md-4'>
-		    
 		</div>
     </div>
 </div>

@@ -34,7 +34,7 @@ export class MainComponent implements OnInit {
       name : name,
       price : price,
       type : type,
-      description : description
+      description : description 
     }
     this.mongo.update_product(dat).subscribe((result => console.log(result)))
   }

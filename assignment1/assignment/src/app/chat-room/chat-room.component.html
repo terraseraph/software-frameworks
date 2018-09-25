@@ -14,13 +14,15 @@
             <thead>
               <tr>
                 <th style="width: 25%" class="">Name</th>
-                <th style="width: 75%" class="">Text</th>
+                <th style="width: 50%" class="">Text</th>
+                <th style="width: 25%" class="">Image</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor='let msg of channel_messages'>
-                <td class="" ng-bind="msg.username">{{msg.username}}</td>
+                <td class="" ng-bind="msg.username"><img width='100px' height='100px' src='{{image_api_url}}{{msg.user_id}}.jpg'/>{{msg.username}}</td>
                 <td class="" ng-bind="msg.message">{{msg.message}}</td>
+                <td class=""><img width='100px' height='100px' src='{{image_api_url}}{{msg.image}}'/></td>
               </tr>
             </tbody>
           </table>
@@ -30,8 +32,17 @@
             <form role="form" (submit)='send_message($event)'>
               <div class="input-append span7">
                 <input type="text" class="span6" ng-model="text" name='message' [(ngModel)]='message' placeholder="Message">
-                <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!text">
               </div>
+        			<div class="form-group">
+        				<label for="send_image">
+        					Profile Image:
+        				</label>
+        				<input id='send_image' (change)='onFileSelected($event)' [(ngModel)]='send_image' type="file" name='send_image'>
+        			</div>
+        			<!--<input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!text">-->
+        			<button class="span1 btn btn-primary" type='submit'>
+        				Submit
+        			</button>
             </form>
           </div>
 

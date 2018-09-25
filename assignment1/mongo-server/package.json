@@ -14,12 +14,18 @@
     "babel-register": "^6.26.0",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
+    "bufferjs": "^3.0.1",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "express-fileupload": "^0.4.0",
+    "formidable": "^1.2.1",
     "jsonfile": "^4.0.0",
     "mongoose": "^5.2.8",
     "morgan": "^1.9.0",
+    "multer": "^1.3.1",
+    "mv": "^2.1.1",
     "nodemon": "^1.18.3",
+    "request": "^2.88.0",
     "socket.io": "^2.1.1",
     "source-map-support": "^0.5.8"
   }

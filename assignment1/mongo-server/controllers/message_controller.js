@@ -17,10 +17,15 @@ exports.getMessages = function(req,res){
 
 exports.newMessage = function(req, res){
   var d = req.body
+  // save_message(d, function(data){
+  //   res.send(data)
+  // })
   var message = new message_model({
     channel_id : d.channel_id,
     message : d.message,
-    username : d.username
+    username : d.username,
+    user_id : d.user_id,
+    image : d.image
   })
   message.isNew = true;
   message.save((err, message) => {
@@ -39,3 +44,26 @@ function write_to_file(file, obj){
     console.log(err);
   })
 }
+
+exports.save_message = function(d, cb){
+    var message = new message_model({
+    channel_id : d.channel_id,
+    message : d.message,
+    username : d.username,
+    user_id : d.user_id,
+    image : d.image
+  })
+  message.isNew = true;
+  message.save((err, message) => {
+    if(err){
+      cb({'success':false, 'message':err})
+    }
+    else{
+      cb({'success':true, 'message':message})
+    }
+  })
+}
+
+// module.exports = {
+//   save_message: save_message
+// }

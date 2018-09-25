@@ -14,6 +14,7 @@ var UserSchema = new Schema({
     email: { type: String},
     role: { type: String, required: true },
     groups: {type: Object},
+    image : {type : String},
     details: {type: Schema.Types.Mixed}
 });
 
