@@ -18,21 +18,8 @@ app.use(fileUpload());
 
 
 app.set('io', io);
-/////////////////////////////////////
+///////////////////////////////////// SOCKETS //////////////////////////////////////////
 
-// io.sockets.on('connection', function (socket) {
-
-//     socket.on('subscribe', function(data) { socket.join(data.room); })
-
-//     socket.on('unsubscribe', function(data) { socket.leave(data.room); })
-
-// });
-
-// setInterval(function(){
-//     io.sockets.in('global').emit('roomChanged', { chicken: 'tasty' });
-// }, 1000);
-
-/////////////////////////////////////
 
 io.on('connection', function(socket){
   console.log("Connected==============")
@@ -91,14 +78,12 @@ socket.on('message', function(data) {
   });
 });
 
-
+/////////////////////////////////////SERVER LISTEN//////////////////////////////////////////
 
 // configure app
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
-// app.use(bodyParser({uploadDir:'./userImages'}));
-// app.use(bodyParser({defer: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('userImages', express.static(path.join(__dirname, 'userImages')))
 
@@ -112,7 +97,6 @@ app.use('userImages', express.static(path.join(__dirname, 'userImages')))
 // connect to database
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/chat-app', {
-//   useMongoClient: true,
  useNewUrlParser: true
 });
 
@@ -133,10 +117,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 SourceMapSupport.install();
 app.use('/api', mongo_routes);
 
-// app.get('/images/:image_name', function (req, res) {
-//     var img  = req.params.image_name
-//     res.sendFile(path.join(__dirname,`userImages/${img}`));
-// });
 
 app.get('/', (req,res) => {
   return res.end('Api working');

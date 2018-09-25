@@ -7,12 +7,8 @@ var mv = require('mv');
 var os = require('os');
 const fileUpload = require('express-fileupload');
 var path = require('path');
-// var imgPath = require('../userImages')
-
-
 os.tmpDir = os.tmpdir;
-// Or with cookies
-// var request = require('request').defaults({jar: true});
+
 
 
 exports.get_image = function(req, res){
@@ -26,22 +22,12 @@ exports.get_image = function(req, res){
 
 exports.save_image = function(req, res){
     console.log("save image ================")
-    // console.log(save_fs(req))
     var img_name = req.body.image
     var user_id = req.body.user_id
     var img_path = `./userImages`
     console.log("FILES===", req.files)
     let imageFile = req.files.image;
- 
-    // var testFolder = '../assignment/src/assets'
-    // fs.readdir(testFolder, (err, files) => {
-    //   files.forEach(file => {
-    //     console.log(file);
-    //   });
-    // })
-    // Use the mv() method to place the file somewhere on your server
     imageFile.mv('./userImages/'+imageFile.name, function(err) {
-    // imageFile.mv('../assignment/src/assets/'+imageFile.name, function(err) {
       if (err)
         return res.status(500).send(err);
    
@@ -83,25 +69,3 @@ function save_fs(req){
         });
     });
 }
-
-
-/**
- *<form method="post" enctype="multipart/form-data" action="/upload">
-    <input type="file" name="file">
-    <input type="submit" value="Submit">
-</form> 
- * 
- * <html>
-  <body>
-    <form ref='uploadForm' 
-      id='uploadForm' 
-      action='http://localhost:8000/upload' 
-      method='post' 
-      encType="multipart/form-data">
-        <input type="file" name="sampleFile" />
-        <input type='submit' value='Upload!' />
-    </form>     
-  </body>
-</html>
- * 
- */

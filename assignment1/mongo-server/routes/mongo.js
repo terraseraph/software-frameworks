@@ -9,20 +9,6 @@ var multer  = require('multer')
 
 
 
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//           console.log(req, file)
-//     cb(null, './userImages')
-//   },
-//   filename: function (req, file, cb) {
-//           console.log(req, file)
-//     cb(null, file.fieldname + '-' + Date.now())
-//   }
-// })
- 
-// var upload = multer({ storage: storage })
-
-
 router.route('/users')
      .get(user_controller.getUsers)
      .post(user_controller.addUser);

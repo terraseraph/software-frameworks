@@ -3,48 +3,22 @@ import message_model from '../models/message_model';
 var jf = require('jsonfile');
 var message_file = '../messages.json';
 
-
+/** Get all messages */
 exports.getMessages = function(req,res){
-  //ensure user can access the room
-  console.log("Got", req.body)
-  message_model.find({ channel_id: req.body.channel_id}, function (err, messages) {
-  if(err){
-    return res.json({'success':false,'message':err});
-    }
-    return res.json({'success':true,'message':messages});
-  });
+  get_messages(req, function(data){
+    return res.json(data)
+  })
 };
 
+
+/** create a new message */
 exports.newMessage = function(req, res){
-  var d = req.body
-  // save_message(d, function(data){
-  //   res.send(data)
-  // })
-  var message = new message_model({
-    channel_id : d.channel_id,
-    message : d.message,
-    username : d.username,
-    user_id : d.user_id,
-    image : d.image
+  new_message(req, function(data){
+    return res.json(data)
   })
-  message.isNew = true;
-  message.save((err, message) => {
-    if(err){
-      return res.json({'success':false, 'message':err})
-    }
-    write_to_file(message_file, req.body)
-    return res.json({'success':true, 'message':message})
-  })
-  // res.send('message...', message)
 };
 
-
-function write_to_file(file, obj){
-  jf.writeFile(file, obj, {flag: 'a', spaces : 2}, function(err) {
-    console.log(err);
-  })
-}
-
+/** Save message (local server function) */
 exports.save_message = function(d, cb){
     var message = new message_model({
     channel_id : d.channel_id,
@@ -64,6 +38,40 @@ exports.save_message = function(d, cb){
   })
 }
 
-// module.exports = {
-//   save_message: save_message
-// }
+///////////////////PRIVATE FUNCTIONS///////////////////////////////////
+
+function get_messages(req, cb){
+  console.log("Got", req.body)
+  message_model.find({ channel_id: req.body.channel_id}, function (err, messages) {
+  if(err){
+    cb({'success':false,'message':err});
+    }
+    cb({'success':true,'message':messages});
+  });
+}
+
+function new_message(req, cb){
+  var d = req.body
+  var message = new message_model({
+    channel_id : d.channel_id,
+    message : d.message,
+    username : d.username,
+    user_id : d.user_id,
+    image : d.image
+  })
+  message.isNew = true;
+  message.save((err, message) => {
+    if(err){
+      cb({'success':false, 'message':err})
+    }
+    write_to_file(message_file, req.body)
+    cb({'success':true, 'message':message})
+  })
+}
+
+/** Write to json file (legacy) */
+function write_to_file(file, obj){
+  jf.writeFile(file, obj, {flag: 'a', spaces : 2}, function(err) {
+    console.log(err);
+  })
+}
