@@ -56,8 +56,10 @@ function addChannel(req, cb){
     new_channel.save((err,channel) => {
         if(err){
         cb ({'success':false,'message': err});
+        return
     }
-    cb ({'success':true,'message':channel});
+        cb ({'success':true,'message':channel});
+        return
   })
 }
 
@@ -67,6 +69,7 @@ function updateChannel(req, cb){
   channel_model.findOneAndUpdate({ _id:req.body.id }, req.body, { new:true }, (err,channel) => {
     if(err){
     cb({'success':false,'message':'Some Error','error':err});
+    return
     }
     console.log(channel);
     cb({'success':true,'message':'Updated successfully',channel});
@@ -78,12 +81,15 @@ function getChannel(req, cb){
   channel_model.find({_id:req.params.id}).exec((err,channel) => {
     if(err){
     cb({'success':false,'message':'Some Error'});
+    return
     }
     if(channel.length){
       cb({'success':true,'message':'channel fetched by id successfully',channel});
+      return
     }
     else{
       cb({'success':false,'message':'channel with the given id not found'});
+      return
     }
   })
 }
@@ -94,8 +100,9 @@ function getAllChannels(req, cb){
   channel_model.find().exec((err,channels) => {
     if(err){
       cb({'success':false,'message':'Some Error'});
+      return
     }
-  cb({'success':true,'message':channels});
+    cb({'success':true,'message':channels});
   });
 }
 

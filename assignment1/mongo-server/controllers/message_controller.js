@@ -45,6 +45,7 @@ function get_messages(req, cb){
   message_model.find({ channel_id: req.body.channel_id}, function (err, messages) {
   if(err){
     cb({'success':false,'message':err});
+    return
     }
     cb({'success':true,'message':messages});
   });
@@ -63,6 +64,7 @@ function new_message(req, cb){
   message.save((err, message) => {
     if(err){
       cb({'success':false, 'message':err})
+      return
     }
     write_to_file(message_file, req.body)
     cb({'success':true, 'message':message})

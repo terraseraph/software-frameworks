@@ -71,6 +71,7 @@ function addUser(req, cb){
     new_user.save((err,user) => {
         if(err){
         cb({'success':false,'message': err});
+        return
     }
     cb({'success':true,'message':'User added successfully',user});
   })
@@ -80,6 +81,7 @@ function updateUser(req, cb){
   user_model.findOneAndUpdate({ _id:req.body.id }, req.body, { new:true }, (err,user) => {
     if(err){
     cb({'success':false,'message':'Some Error','error':err});
+    return
     }
     console.log(user);
     cb({'success':true,'message':'Updated successfully',user});
@@ -90,6 +92,7 @@ function getAllUsers(req, cb){
   user_model.find().exec((err,users) => {
     if(err){
     cb({'success':false,'message':'Some Error'});
+    return
     }
 cb({'success':true,'message':users});
   });
@@ -99,12 +102,15 @@ function getUser(req, cb){
   user_model.find({_id:req.params.id}).exec((err,user) => {
     if(err){
     cb({'success':false,'message':'Some Error'});
+    return
     }
     if(user.length){
       cb({'success':true,'message':'User fetched by id successfully',user});
+      return
     }
     else{
       cb({'success':false,'message':'User with the given id not found'});
+      return
     }
   })
 }
@@ -112,9 +118,10 @@ function getUser(req, cb){
 function removeUser(req, cb){
   user_model.findByIdAndRemove(req.body.id, (err,user) => {
     if(err){
-    cb({'success':false,'message':'Some Error'});
+      cb({'success':false,'message':'Some Error'});
+      return
     }
-cb({'success':true,'message':user});
+    cb({'success':true,'message':user});
   })
 }
 
@@ -137,11 +144,13 @@ function loginUser(req, cb){
               user.comparePassword(req.body.password, function(err, isMatch) {
                   if(err){
                       cb({'success':false,'message':'Some Error'});
+                      return
                   }
                   else{
                     req.body.role = user.role
                     write_to_file(user_file, req.body)
                     cb({'success':true,'PasswordMatch': isMatch, "user":user});
+                    return
                   }
               })            
             }

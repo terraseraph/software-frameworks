@@ -53,8 +53,9 @@ function addGroup(req, cb){
     new_group.save((err,group) => {
         if(err){
         cb({'success':false,'message': err});
+        return
     }
-    cb({'success':true,'message':group});
+        cb({'success':true,'message':group});
   })
 }
 
@@ -62,6 +63,7 @@ function updateGroup(req, cb){
   group_model.findOneAndUpdate({ _id:req.body.id }, req.body, { new:true }, (err,group) => {
     if(err){
     cb({'success':false,'message':'Some Error','error':err});
+    return
     }
     console.log(group);
     cb({'success':true,'message':'Updated successfully',group});
@@ -71,7 +73,8 @@ function updateGroup(req, cb){
 function getAllGroups(req, cb){
   group_model.find().exec((err,groups) => {
     if(err){
-      cb({'success':false,'message':'Some Error'});
+      cb({'success':false,'message':err});
+      return
     }
   cb({'success':true,'message':groups});
   });
@@ -80,10 +83,12 @@ function getAllGroups(req, cb){
 function getGroup(req, cb){
   group_model.find({_id:req.params.id}).exec((err,group) => {
     if(err){
-    cb({'success':false,'message':'Some Error'});
+    cb({'success':false,'message':err});
+    return
     }
     if(group.length){
       cb({'success':true,'message':'group fetched by id successfully',group});
+      return
     }
     else{
       cb({'success':false,'message':'group with the given id not found'});
@@ -94,7 +99,8 @@ function getGroup(req, cb){
 function removeGroup(req, cb){
   group_model.findByIdAndRemove(req.body.id, (err,group) => {
     if(err){
-    cb({'success':false,'message':'Some Error'});
+    cb({'success':false,'message':err});
+    return
     }
 cb({'success':true,'message':  group});
   })

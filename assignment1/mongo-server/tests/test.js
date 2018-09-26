@@ -6,9 +6,9 @@ chai.use(chaiHttp);
 
 // var server = require('./server.js');
 var api = `http://software-frameworks-terraseraph.c9users.io:8081/api`;
-var temp_id
+var temp_id = "test1"
 
-describe('User Tests', function() {
+describe('HTTP Tests', function() {
 
 	describe(api+'/users', function() {
 		it('Should return a list of users', function(done) {
@@ -20,7 +20,7 @@ describe('User Tests', function() {
 				});
 				response.on('end', function() {
 				    body = JSON.parse(body)
-				    console.log(body)
+				    // console.log(body)
 					assert.equal(body.success, true);
 				});
 			    done();
@@ -39,7 +39,7 @@ describe('User Tests', function() {
 				});
 				response.on('end', function() {
 				    body = JSON.parse(body)
-				    console.log(body)
+				    // console.log(body)
 					assert.equal(body.success, true);
 				});
 			    done();
@@ -58,7 +58,7 @@ describe('User Tests', function() {
 				});
 				response.on('end', function() {
 				    body = JSON.parse(body)
-				    console.log(body)
+				    // console.log(body)
 					assert.equal(body.success, true);
 				});
 			    done();
@@ -67,9 +67,18 @@ describe('User Tests', function() {
 	});
 	
 	
-	describe(api+'/group/add_group', function() {
+	
+	
+});
+
+
+
+
+describe('API function Tests', function() {
+	
+	describe("Group Add, update, delete", function() {
 	    var dat = {
-	        group_name: "test_group",
+	        group_name: "test_api_group",
             group_admins: "test_group_admin"
 	    }
         it("Create a new group", function(done) {
@@ -80,63 +89,58 @@ describe('User Tests', function() {
             .end(function (err, res) {
                 // chai.expect(res.body).to.be.json;   
                 chai.expect(res).to.have.status(200);
-                console.log(res.body)
+                // console.log(res.body)
                 temp_id = res.body.message._id
+                console.log(temp_id)
+                console.log(res.body)
                 assert.equal(res.body.success, true);
                 done();
             });
-        });
-	});
-	
-	
-	describe(api+'/group/update_group', function() {
-	    var dat = {
-	        id : temp_id,
-	        group_name: "update_test_group",
-            group_admins: ["update_test_group_admin"],
-            group_users: ["update_test_users"]
-	    }
+        })
         it("Update a group", function(done) {
             // Send some Form Data
+		    var dat = {
+		        id : temp_id,
+		        group_name: "update_test_group",
+	            group_admins: ["update_test_group_admin"],
+	            group_users: ["update_test_users"]
+		    }            
              chai.request(api)
             .post('/group/update_group')
             .send(dat)
             .end(function (err, res) {
                 // chai.expect(res.body).to.be.json;   
                 chai.expect(res).to.have.status(200);
+                console.log(temp_id)
                 console.log(res.body)
                 assert.equal(res.body.success, true);
                 done();
             });
-        });
-	});
-	
-	
-	describe(api+'/group/remove_group', function() {
-	    var dat = {
-	        id : temp_id,
-	        group_name: "update_test_group",
-            group_admins: ["update_test_group_admin"],
-            group_users: ["update_test_users"]
-	    }
-        it("Create remove a group", function(done) {
+        })
+        it("remove a group", function(done) {
             // Send some Form Data
+		    var dat = {
+		        id : temp_id
+		    }
              chai.request(api)
             .post('/group/remove_group')
             .send(dat)
             .end(function (err, res) {
                 // chai.expect(res.body).to.be.json;   
                 chai.expect(res).to.have.status(200);
+                console.log(temp_id)
                 console.log(res.body)
                 assert.equal(res.body.success, true);
                 done();
             });
-        });
+        });        
 	});
 	
 	
-	describe(api+'/channel/add_channel', function() {
+	describe("Channel create, update, delete", function() {
+		var temp_id
 	    var dat = {
+	      _id : temp_id,
           channel_name: "test channel name",
           group_id: "test_id",
           channel_users: ['test_user']
@@ -149,58 +153,112 @@ describe('User Tests', function() {
             .end(function (err, res) {
                 // chai.expect(res.body).to.be.json;   
                 chai.expect(res).to.have.status(200);
-                console.log(res.body)
+                // console.log(res.body)
                 temp_id = res.body.message._id
                 assert.equal(res.body.success, true);
                 done();
             });
-        });
-	});
-	
-	describe(api+'/channel/update_channel', function() {
-	    var dat = {
-	        id : temp_id,
-	        group_name: "update_test_group",
-            group_admins: ["update_test_group_admin"],
-            group_users: ["update_test_users"]
-	    }
+        })
         it("Update a channel", function(done) {
             // Send some Form Data
-             chai.request(api)
-            .post('/channel/update_channel')
-            .send(dat)
-            .end(function (err, res) {
-                // chai.expect(res.body).to.be.json;   
-                chai.expect(res).to.have.status(200);
-                console.log(res.body)
-                assert.equal(res.body.success, true);
-                done();
-            });
-        });
-	});
-	
-	describe(api+'/channel/remove_channel', function() {
-	    var dat = {
-	        id : temp_id
-	    }
+		    var dat = {
+		        id : temp_id,
+		        group_name: "update_test_group",
+	            group_admins: ["update_test_group_admin"],
+	            group_users: ["update_test_users"]
+		    }            
+	        chai.request(api)
+	        .post('/channel/update_channel')
+	        .send(dat)
+	        .end(function (err, res) {
+	            // chai.expect(res.body).to.be.json;   
+	            chai.expect(res).to.have.status(200);
+	            console.log(temp_id)
+	            console.log(res.body)
+	            assert.equal(res.body.success, true);
+	            done();
+	        });
+        })
         it("remove a channel", function(done) {
             // Send some Form Data
-             chai.request(api)
+		    var dat = {
+		        id : temp_id
+		    }
+            chai.request(api)
             .post('/channel/remove_channel')
             .send(dat)
             .end(function (err, res) {
                 // chai.expect(res.body).to.be.json;   
                 chai.expect(res).to.have.status(200);
+                console.log(temp_id)
                 console.log(res.body)
                 assert.equal(res.body.success, true);
                 done();
             });
         });
 	});
-	
-	
-	
-	
+
+
+	describe("User create, update, delete", function() {
+		var temp_id
+	    var dat = {
+	      _id : temp_id,
+          username: "testUser",
+          password: "123",
+          role: "user"
+	    }
+        it("Create a new user", function(done) {
+            // Send some Form Data
+             chai.request(api)
+            .post('/users')
+            .send(dat)
+            .end(function (err, res) {
+                // chai.expect(res.body).to.be.json;   
+                chai.expect(res).to.have.status(200);
+                // console.log(res.body)
+                temp_id = res.body.message._id
+                assert.equal(res.body.success, true);
+                done();
+            });
+        })
+        it("Update a user", function(done) {
+            // Send some Form Data
+		    var dat = {
+		        id : temp_id,
+		        username: "update_user_name",
+	            password: "321",
+	            role: "super"
+		    }            
+	        chai.request(api)
+	        .post('/users/edit')
+	        .send(dat)
+	        .end(function (err, res) {
+	            // chai.expect(res.body).to.be.json;   
+	            chai.expect(res).to.have.status(200);
+	            console.log(temp_id)
+	            console.log(res.body)
+	            assert.equal(res.body.success, true);
+	            done();
+	        });
+        })
+        it("remove a user", function(done) {
+            // Send some Form Data
+		    var dat = {
+		        id : temp_id
+		    }
+            chai.request(api)
+            .post('/users/remove')
+            .send(dat)
+            .end(function (err, res) {
+                // chai.expect(res.body).to.be.json;   
+                chai.expect(res).to.have.status(200);
+                console.log(temp_id)
+                console.log(res.body)
+                assert.equal(res.body.success, true);
+                done();
+            });
+        });
+	});
 });
 
 //RUN FROM node_modules/mocha/bin/mocha test
