@@ -7,6 +7,11 @@ exports.createProduct = function(db, data, callback){
   const collection = db.collection('products');
   collection.insert(data, function(err, result){
     assert.equal(err, null);
-    callback(result)
+    if(err){
+      callback(err)
+    }
+    else{
+      callback(result)
+    }
   })
 }

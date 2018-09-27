@@ -94,6 +94,7 @@ describe('API function Tests', function() {
                 console.log(temp_id)
                 console.log(res.body)
                 assert.equal(res.body.success, true);
+                assert.equal(res.body.message.group_name, 'test_api_group')
                 done();
             });
         })
@@ -114,6 +115,7 @@ describe('API function Tests', function() {
                 console.log(temp_id)
                 console.log(res.body)
                 assert.equal(res.body.success, true);
+                assert.equal(res.body.message.group_name, 'update_test_group')
                 done();
             });
         })
@@ -260,5 +262,62 @@ describe('API function Tests', function() {
         });
 	});
 });
+
+
+//Tests that fail
+	// describe("Fail tests for users", function() {
+	// 	it('Should return a list of users', function(done) {
+	// 		http.get(api+'/users', function(response) {
+	// 			assert.equal(response.statusCode, 200);
+ //               var body = '';
+	// 			response.on('data', function(d) {
+	// 				body += d;
+	// 			});
+	// 			response.on('end', function() {
+	// 			    body = JSON.parse(body)
+	// 			    // console.log(body)
+	// 				assert.equal(body.success, false);
+	// 			});
+	// 		    done();
+	// 		});
+	// 	});
+	// });
+	
+	// describe(api+'/channel', function() {
+	// 	it('Should return a list of channels', function(done) {
+	// 		http.get(api+'/channel', function(response) {
+	// 			assert.equal(response.statusCode, 200);
+ //               var body = '';
+	// 			response.on('data', function(d) {
+	// 				body += d;
+	// 			});
+	// 			response.on('end', function() {
+	// 			    body = JSON.parse(body)
+	// 			    // console.log(body)
+	// 				assert.equal(body.success, false);
+	// 			});
+	// 		    done();
+	// 		});
+	// 	});
+	// });
+	
+	
+	// describe(api+'/group', function() {
+	// 	it('Should return a list of groups', function(done) {
+	// 		http.get(api+'/group', function(response) {
+	// 			assert.equal(response.statusCode, 200);
+ //               var body = '';
+	// 			response.on('data', function(d) {
+	// 				body += d;
+	// 			});
+	// 			response.on('end', function() {
+	// 			    body = JSON.parse(body)
+	// 			    // console.log(body)
+	// 				assert.equal(body.success, false);
+	// 			});
+	// 		    done();
+	// 		});
+	// 	});
+	// });
 
 //RUN FROM node_modules/mocha/bin/mocha test

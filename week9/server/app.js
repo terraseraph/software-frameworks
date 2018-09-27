@@ -32,6 +32,7 @@ app.get('/products', function(req, res){
     const db = client.db(dbName);
     read.getAllDocuments(db, function(data){
         console.log(data)
+        data.success = true
         res.send(data)
     })    
   });  
@@ -46,6 +47,7 @@ app.post('/products/search', function(req, res){
     const db = client.db(dbName);
     read.searchDocuments(db, req.body, function(data){
         console.log(data)
+        data.success = true
         res.send(data)
     })
   });  
@@ -60,6 +62,7 @@ app.post('/products', function(req, res){
     console.log("Connected successfully to server");
     const db = client.db(dbName);
     create.createProduct(db, req.body, function(data) {
+      data.success = true
       res.send(data)
     });
   });  
@@ -72,6 +75,7 @@ app.put('/products', function(req, res){
     console.log("Connected successfully to server");
     const db = client.db(dbName);
     update.updateDocument(db, req.body, function(data) {
+      data.success = true
       res.send(data)
     });
 
@@ -86,6 +90,7 @@ app.delete('/products/:id', function(req, res){
     console.log("Connected successfully to server", req.params.id);
     const db = client.db(dbName);
       Delete.removeDocument(db, req.params.id, function(data) {
+        data.success = true
         res.send(data)
       });
 

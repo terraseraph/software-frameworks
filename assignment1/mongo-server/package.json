@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha ./tests/test.js",
+    "failtest": "mocha ./tests/failtest.js",
     "start": "nodemon app_hooked.js"
   },
   "author": "",
