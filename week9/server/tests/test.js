@@ -91,7 +91,7 @@ describe('HTTP Tests', function() {
             .put('/')
             .send(dat)
             .end(function (err, res) {
-                chai.expect(res).to.have.status(200);
+                chai.expect(res).to.have.status(500);
                 chai.expect(res).to.be.a('Object')
                 console.log(temp_id)
                 console.log(res.body)
@@ -107,7 +107,7 @@ describe('HTTP Tests', function() {
              chai.request(api)
             .delete('/'+temp_id)
             .end(function (err, res) {
-                chai.expect(res).to.have.status(200);
+                chai.expect(res).to.have.status(500);
                 chai.expect(res).to.be.a('Object')
                 console.log(temp_id)
                 console.log(res.body)
