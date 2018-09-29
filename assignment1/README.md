@@ -4,6 +4,8 @@
 
 The node REST API server requires mongo to be running prior to startup. Navigate to the node server directory and execute:
 
+`nvm use 10.6.0` - This project requires node version 10.6.0
+
 `npm start` - Begins the REST server
 
 `npm test` - This will test all routes the relate to CRUD operations.
