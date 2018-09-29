@@ -31,18 +31,22 @@ export class MongoService {
   
   public api = `http://software-frameworks-terraseraph.c9users.io:8081/api`;
   
+  private group_url = `${this.api}/group`;
   private add_group_url = `${this.api}/group/add_group`;
   private update_group_url = `${this.api}/group/update_group`;
   private get_group_url = `${this.api}/group/get_group`;
   private all_groups_url = `${this.api}/group`;
   private remove_group_url = `${this.api}/group/remove_group`;
   
+  private channel_url = `${this.api}/channel`;
   private add_channel_url = `${this.api}/channel/add_channel`;
   private update_channel_url = `${this.api}/channel/update_channel`;
   private get_channel_url = `${this.api}/channel`;
   private all_channel_url = `${this.api}/channel`;
   private remove_channel_url = `${this.api}/channel/remove_channel`;
   
+  
+  private user_url = `${this.api}/users`;
   private add_user_url = `${this.api}/users`;
   private get_users_url = `${this.api}/users`;
   private update_user_url = `${this.api}/users/edit`;
@@ -78,27 +82,27 @@ export class MongoService {
   /** Create channel */
   add_channel(data): Observable<any>{
     console.log(data)
-    return this.http.post(this.add_channel_url, data)
+    return this.http.post(this.channel_url, data)
   }  
   
   /** Update Channel */
   update_channel(data): Observable<any>{
-    return this.http.post(this.update_channel_url, data)
+    return this.http.put(this.channel_url, data)
   }
   
   /** Load channel */
   load_channel(id): Observable<any>{
-    return this.http.get(`this.all_channel_url/${id}`)
+    return this.http.get(`${this.channel_url}/${id}`)
   }  
   
   /** Load all channels */
   load_channels(): Observable<any>{
-    return this.http.get(this.all_channel_url)
+    return this.http.get(this.channel_url)
   }
   
   /** Remove a channel */
   remove_channel(data): Observable<any>{
-    return this.http.post(this.remove_channel_url, data)
+    return this.http.delete(`${this.channel_url}/${data}`)
   }
   
   
@@ -107,27 +111,27 @@ export class MongoService {
   /** Create a group */
   add_group(data): Observable<any>{
     console.log(data)
-    return this.http.post(this.add_group_url, data)
+    return this.http.post(this.group_url, data)
   }
   
   /** Update group */
   update_group(data): Observable<any>{
-    return this.http.post(this.update_group_url, data)
+    return this.http.put(this.group_url, data)
   }
   
   /** Load a group */
   load_group(id): Observable<any>{
-    return this.http.get(`${this.all_groups_url}/${id}`)
+    return this.http.get(`${this.group_url}/${id}`)
   }  
   
   /** Load all groups */
   load_groups(): Observable<any>{
-    return this.http.get(this.all_groups_url)
+    return this.http.get(this.group_url)
   }
   
   /** Remove a group */
   remove_group(data): Observable<any>{
-    return this.http.post(this.remove_group_url, data)
+    return this.http.delete(`${this.group_url}/${data}`)
   }
   
   
@@ -148,12 +152,12 @@ export class MongoService {
   
   /** Update a user */
   update_user(data): Observable<any>{
-    return this.http.post(this.update_user_url, data)
+    return this.http.put(this.get_users_url, data)
   }
   
   /** Remove a user */
   remove_user(data): Observable<any>{
-    return this.http.post(this.remove_user_url, data)
+    return this.http.delete(this.get_user_url+'/'+data)
   }
   
   /** Login a user */

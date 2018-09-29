@@ -7,7 +7,6 @@ import {SocketService} from "../socket.service";
 import { OnDestroy } from "@angular/core";
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import {FormsModule} from '@angular/forms';
-// import { ISubscription } from "rxjs/Subscription";
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -42,12 +41,7 @@ export class ChatRoomComponent implements OnInit {
     private router:Router,
     private route: ActivatedRoute,
     private authguard:AuthguardService,
-    // private formGroup:FormGroup,
-    // private validators:Validators,
-    // private formBuilder:FormBuilder,
-    // private formControl:FormControl,
     private formsModule:FormsModule) {
-    // this.route.params.subscribe( params => this.room_id = params.toString())
   }
 
   ngOnInit() {
@@ -104,8 +98,6 @@ export class ChatRoomComponent implements OnInit {
       this.mongo.send_message(dat).subscribe((messages => console.log(messages)));
       this.sendMessage(this.channel_id,this.message,this.username,this.mongo.user_data._id,"")
     }
-    //this.channel_messages.push(dat)
-    // this.message = ""
   }
   
   onFileSelected(event){

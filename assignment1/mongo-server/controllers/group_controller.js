@@ -97,7 +97,7 @@ function getGroup(req, cb){
 }
 
 function removeGroup(req, cb){
-  group_model.findByIdAndRemove(req.body.id, (err,group) => {
+  group_model.findByIdAndRemove(req.params.id, (err,group) => {
     if(err){
     cb({'success':false,'message':err});
     return

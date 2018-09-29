@@ -132,7 +132,7 @@ export class SettingsComponent implements OnInit {
     var data = {
       id : user_id
     }
-    this.mongo.remove_user(data).subscribe((messages => this.get_users(messages)))
+    this.mongo.remove_user(user_id).subscribe((messages => this.get_users(messages)))
   }  
   
 //=====Groups====================
@@ -205,7 +205,7 @@ export class SettingsComponent implements OnInit {
     var data = {
       id : group_id
     }
-    this.mongo.remove_group(data).subscribe((messages => this.get_groups(messages)))
+    this.mongo.remove_group(group_id).subscribe((messages => this.get_groups(messages)))
   }
 
 
@@ -299,7 +299,7 @@ export class SettingsComponent implements OnInit {
     var data = {
       id : channel_id
     }
-    this.mongo.remove_channel(data).subscribe((messages => this.get_channels(messages)))
+    this.mongo.remove_channel(channel_id).subscribe((messages => this.get_channels(messages)))
   }
 
 
