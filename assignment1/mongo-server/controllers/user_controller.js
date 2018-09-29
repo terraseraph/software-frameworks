@@ -118,7 +118,7 @@ function getUser(req, cb){
 function removeUser(req, cb){
   user_model.findByIdAndRemove(req.params.id, (err,user) => {
     if(err){
-      cb({'success':false,'message':'Some Error'});
+      cb({'success':false,'message':err});
       return
     }
     cb({'success':true,'message':user});

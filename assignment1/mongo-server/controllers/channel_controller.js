@@ -110,7 +110,7 @@ function getAllChannels(req, cb){
 function removeChannel(req, cb){
   channel_model.findByIdAndRemove(req.params.id, (err,channel) => {
     if(err){
-    cb({'success':false,'message':'Some Error'});
+    cb({'success':false,'message':err});
     }
     cb({'success':true,'message':  channel});
   })
